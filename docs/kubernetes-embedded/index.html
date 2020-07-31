@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Getting Started with Embedded Hazelcast on Kubernetes :: Hazelcast Guides</title>
+    <title>Embedded Hazelcast on Kubernetes :: Hazelcast Guides</title>
     <link rel="canonical" href="https://hazelcast.org/kubernetes-embedded/">
     <meta name="generator" content="Antora 2.3.3">
     <link rel="stylesheet" href="../_/css/site.css">
@@ -66,7 +66,7 @@
 <!--
 <div class="nav-panel-explore is-active" data-panel="explore">
   <div class="context">
-    <span class="title">Hazelcast Embedded with SpringBoot on Kubernetes</span>
+    <span class="title">Embedded Hazelcast on Kubernetes</span>
     <span class="version">master</span>
   </div>
   <ul class="components">
@@ -75,6 +75,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../caching-springboot/">master</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <span class="title">Embedded Hazelcast on Kubernetes</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="./">master</a>
         </li>
       </ul>
     </li>
@@ -123,14 +131,6 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../hazelcast-client-quarkus/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component is-current">
-      <span class="title">Hazelcast Embedded with SpringBoot on Kubernetes</span>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="./">master</a>
         </li>
       </ul>
     </li>
@@ -223,7 +223,7 @@ from nav.
 </div>
   <div class="content">
 <article class="guide-content">
-<h1 class="page">Getting Started with Embedded Hazelcast on Kubernetes</h1>
+<h1 class="page">Embedded Hazelcast on Kubernetes</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -273,7 +273,7 @@ from nav.
 <h2 id="_create_an_application"><a class="anchor" href="#_create_an_application"></a>Create an Application</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can embed Hazelcast into any JVM-based application and use any web framework you want. As the sample for this guide, let&#8217;s use the application from <a href="https://github.com/hazelcast-guides/hazelcast-embedded-springboot">Getting Started with Hazelcast using Spring Boot</a> guide. To download it, execute the following command.</p>
+<p>You can embed Hazelcast into any JVM-based application and use any web framework you want. As the sample for this guide, let&#8217;s use the application from <a href="../hazelcast-embedded-springboot/" class="page">Getting Started with Hazelcast using Spring Boot</a> guide. To download it, execute the following command.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -288,7 +288,7 @@ from nav.
 </td>
 <td class="content">
 <div class="paragraph">
-<p>You can use any other JVM-based application framework, but make sure your project includes a dependency to <code>hazelcast:hazelcast-all:${hazelcast.version}</code> (or <code>hazelcast:hazelcast-kubernetes:${hazelcast-kubernetes.version</code>).</p>
+<p>You can use any other JVM-based application framework, but please make sure your project includes a dependency to &#8216;hazelcast:hazelcast-all:${hazelcast.version}&#8217; (or &#8216;hazelcast:hazelcast-kubernetes:${hazelcast-kubernetes.version}&#8217;).</p>
 </div>
 </td>
 </tr>
@@ -364,7 +364,7 @@ ENTRYPOINT ["java","-jar","app.jar"]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you want to use your image in the following steps, please also make sure your Docker Hub registry is public. However, for the purpose of this guide, you can also use the already built <code>hazelcastguides/hazelcast-embedded-kubernetes</code> Docker image.</p>
+<p>If you want to use your image in the following steps, please also make sure your Docker Hub registry is public. However, for the purpose of this guide, you can use the already built <code>hazelcastguides/hazelcast-embedded-kubernetes</code> Docker image.</p>
 </div>
 </div>
 </div>
@@ -388,14 +388,14 @@ ENTRYPOINT ["java","-jar","app.jar"]</code></pre>
 <p>If you use service account other than <code>default</code> or namespace other than <code>default</code>, you need to modify <a href="https://raw.githubusercontent.com/hazelcast/hazelcast-kubernetes/master/rbac.yaml" class="bare">https://raw.githubusercontent.com/hazelcast/hazelcast-kubernetes/master/rbac.yaml</a></p>
 </li>
 <li>
-<p>If your Kubernetes cluster does not use RBAC, you can skip the "Configure RBAC" step</p>
+<p>If your Kubernetes cluster does not use RBAC, you can skip the whole "Configure RBAC" step</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_deploy_the_application_to_kubernetes"><a class="anchor" href="#_deploy_the_application_to_kubernetes"></a>Deploy the Application to Kubernetes</h2>
+<h2 id="_deploy_application_to_kubernetes"><a class="anchor" href="#_deploy_application_to_kubernetes"></a>Deploy Application to Kubernetes</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Assuming you have a running Kubernetes cluster, you can run the following commands to deploy your application and scale it to 2 replicas.</p>
