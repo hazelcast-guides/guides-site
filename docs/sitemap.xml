@@ -28,7 +28,7 @@
 <loc>https://hazelcast.org/sitemap-home.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hazelcast.org/sitemap-istio-embedded.xml</loc>
+<loc>https://hazelcast.org/sitemap-istio.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hazelcast.org/sitemap-kubernetes-embedded.xml</loc>
