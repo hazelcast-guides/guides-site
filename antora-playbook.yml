@@ -20,7 +20,7 @@ content:
     - url: https://github.com/hazelcast-guides/hibernate-jcache
       branches: master
       start_path: doc
-    - url: https://github.com/hazelcast-guides/istio-embedded
+    - url: https://github.com/hazelcast-guides/istio
       branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/caching-micronaut

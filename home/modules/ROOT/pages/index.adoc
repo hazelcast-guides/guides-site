@@ -79,7 +79,7 @@ Getting Started with Embedded Hazelcast on Kubernetes.
 
 
 [.guide]
-=== xref:istio-embedded:ROOT:index.adoc[Hazelcast with Istio Service Mesh]
+=== xref:istio:ROOT:index.adoc[Hazelcast with Istio Service Mesh]
 
 Getting Started with Hazelcast Embedded and Client/Server topologies in Istio Service Mesh.
 
