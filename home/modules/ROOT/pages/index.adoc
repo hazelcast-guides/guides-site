@@ -73,7 +73,7 @@ Getting Started with Hazelcast on ECS.
 
 
 [.guide]
-=== xref:kubernetes-embedded:ROOT:index.adoc[Hazelcast Embedded with SpringBoot on Kubernetes]
+=== xref:kubernetes-embedded:ROOT:index.adoc[Embedded Hazelcast on Kubernetes]
 
 Getting Started with Embedded Hazelcast on Kubernetes.
 
