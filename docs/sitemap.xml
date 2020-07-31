@@ -31,7 +31,7 @@
 <loc>https://hazelcast.org/sitemap-istio-embedded.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://hazelcast.org/sitemap-kubernetes-springboot-embedded.xml</loc>
+<loc>https://hazelcast.org/sitemap-kubernetes-embedded.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://hazelcast.org/sitemap-springboot-hibernate.xml</loc>
