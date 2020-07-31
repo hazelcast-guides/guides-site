@@ -235,7 +235,7 @@ from nav.
 <h2 id="_what_youll_learn"><a class="anchor" href="#_what_youll_learn"></a>What You’ll Learn</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide contains basic Spring Boot microservices with both Hazelcast Embedded and Hazelcast Client-Server. Those microservices demonstarates how Hazelcast can be used in Istio environments. The guide mainly focuses on how to run Hazelcast with Istio. It does not explain what service meshes are and how Istio works.</p>
+<p>This guide contains basic Spring Boot microservices with both Hazelcast Embedded and Hazelcast Client-Server. Those microservices demonstarates how Hazelcast can be used in the Istio environments. The guide mainly focuses on how to run Hazelcast with Istio. It does not explain what service meshes are and how Istio works.</p>
 </div>
 </div>
 </div>
@@ -249,14 +249,14 @@ from nav.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ gcloud container clusters create hazelcast-istio-k8s-cluster --cluster-version=1.14.8-gke.12 --num-nodes=4</pre>
+<pre>gcloud container clusters create hazelcast-cluster --num-nodes=4</pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_istio_1_3_4"><a class="anchor" href="#_istio_1_3_4"></a>Istio 1.3.4</h3>
+<h3 id="_istio_1_6_6"><a class="anchor" href="#_istio_1_6_6"></a>Istio 1.6.6</h3>
 <div class="paragraph">
-<p>This code sample has been tested against Istio 1.3.4</p>
+<p>This code sample has been tested against Istio 1.6.6</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -265,8 +265,8 @@ from nav.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.3.4 sh -
-$ export PATH=`pwd`/istio-1.3.4/bin:$PATH</pre>
+<pre>curl -L https://istio.io/downloadIstio | sh -
+export PATH=`pwd`/`ls | grep istio`/bin:$PATH</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -274,29 +274,8 @@ $ export PATH=`pwd`/istio-1.3.4/bin:$PATH</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ cd istio-1.3.4
-$ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done</pre>
+<pre>istioctl install --set profile=demo --skip-confirmation</pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Verify that you have 23 CRDs installed:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ kubectl get crds | grep 'istio.io' | wc -l
-23</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Install Istio with mTLS enabled:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>$ kubectl apply -f install/kubernetes/istio-demo-auth.yaml</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This installation applies mTLS between Service Proxies.</p>
 </div>
 <div class="paragraph">
 <p>Verify both istioctl client and control plane has the same version:</p>
@@ -304,8 +283,9 @@ $ for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -
 <div class="listingblock">
 <div class="content">
 <pre>$ istioctl version
-client version: 1.3.4
-control plane version: 1.3.4</pre>
+client version: 1.6.6
+control plane version: 1.6.6
+data plane version: 1.6.6 (3 proxies)</pre>
 </div>
 </div>
 </div>
@@ -318,9 +298,9 @@ control plane version: 1.3.4</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ git clone https://github.com/hazelcast-guides/istio-embedded.git
-$ cd istio-embedded
-$ kubectl apply -f rbac.yaml</pre>
+<pre>git clone https://github.com/hazelcast-guides/istio-embedded.git
+cd istio-embedded
+kubectl apply -f rbac.yaml</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -328,7 +308,7 @@ $ kubectl apply -f rbac.yaml</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl label namespace default istio-injection=enabled</pre>
+<pre>kubectl label namespace default istio-injection=enabled</pre>
 </div>
 </div>
 </div>
@@ -355,16 +335,16 @@ $ kubectl apply -f rbac.yaml</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ mvn compile com.google.cloud.tools:jib-maven-plugin:1.8.0:build -Dimage=YOUR-NAME/hazelcast-springboot-embedded:1.0</pre>
+<pre>mvn compile com.google.cloud.tools:jib-maven-plugin:1.8.0:build -Dimage=YOUR-NAME/istio-embedded:1.0</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Instead, pre-built image is located <a href="https://hub.docker.com/r/mesut/hazelcast-springboot-embedded">here</a> and deployments in embedded example use that image.</p>
+<p>Instead, you can use the already pre-built docker image <code>hazelcastguides/istio-embedded:1.0</code>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>If you want to build your own image then you can use <a href="https://github.com/GoogleContainerTools/jib">jib</a> to do that but do not forget to update <code>hazelcast-embedded.yaml</code> with your own image.</p>
+<p>If you want to build your own image, then do not forget to update <code>hazelcast-embedded.yaml</code> with your own image.</p>
 </div>
 </div>
 </div>
@@ -377,6 +357,21 @@ $ kubectl apply -f rbac.yaml</pre>
 statefulset.apps/hazelcast-embedded created
 service/hazelcast-embedded-headless created
 service/springboot-service created</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can check that the application started and that Hazelcast successfully formed a cluster.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ kubectl logs pod/hazelcast-embedded-0 hazelcast-embedded
+...
+Members {size:3, ver:3} [
+        Member [10.12.1.6]:5701 - 644e6bbf-335a-410b-80ab-0cb648dbc772
+        Member [10.12.2.8]:5701 - 0ab13148-b6bb-477e-970b-0b5c226ed2aa this
+        Member [10.12.3.4]:5701 - 72f56c90-f55e-490c-b3c0-d40fe970557f
+]
+...</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -399,8 +394,8 @@ springboot-service            ClusterIP   10.19.252.76   &lt;none&gt;        80/
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl run curl --rm --image=radial/busyboxplus:curl -i --tty
-$ SPRINGBOOT_SERVICE=10.19.252.76</pre>
+<pre>kubectl run curl --rm --image=radial/busyboxplus:curl -i --tty
+SPRINGBOOT_SERVICE=10.19.252.76</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -447,16 +442,16 @@ $ SPRINGBOOT_SERVICE=10.19.252.76</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>mvn compile com.google.cloud.tools:jib-maven-plugin:1.8.0:build -Dimage=YOUR-NAME/hazelcast-springboot-client:1.0</pre>
+<pre>mvn compile com.google.cloud.tools:jib-maven-plugin:1.8.0:build -Dimage=YOUR-NAME/istio-client:1.0</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Instead, pre-built image is located <a href="https://hub.docker.com/r/mesut/hazelcast-springboot-client">here</a> and deployments in client-server example use that image.</p>
+<p>Instead, you can use the already pre-built docker image <code>hazelcastguides/istio-client:1.0</code>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>If you want to build your own image then you can use <a href="https://github.com/GoogleContainerTools/jib">jib</a> to do that but do not forget to update <code>hazelcast-springboot-client.yaml</code> with your own image.</p>
+<p>If you want to build your own image, then do not forget to update <code>hazelcast-client.yaml</code> with your own image.</p>
 </div>
 </div>
 </div>
@@ -485,7 +480,7 @@ hazelcast-cluster-2   2/2     Running   0          27s</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl apply -f hazelcast-springboot-client.yaml</pre>
+<pre>kubectl apply -f hazelcast-client.yaml</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -493,7 +488,7 @@ hazelcast-cluster-2   2/2     Running   0          27s</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl logs hazelcast-client-0 hazelcast-client -f
+<pre>$ kubectl logs hazelcast-client-0 hazelcast-client
 ...
 Members [3] {
 	Member [10.16.2.14]:5701 - 51274b4d-dc7f-4647-9ceb-c32bfc922c95
@@ -521,8 +516,8 @@ springboot-service   ClusterIP   10.19.250.127   &lt;none&gt;        80/TCP    3
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl run curl --rm --image=radial/busyboxplus:curl -i --tty
-$ SPRINGBOOT_SERVICE=10.19.250.127</pre>
+<pre>kubectl run curl --rm --image=radial/busyboxplus:curl -i --tty
+SPRINGBOOT_SERVICE=10.19.250.127</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -553,8 +548,8 @@ $ SPRINGBOOT_SERVICE=10.19.250.127</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ kubectl delete -f hazelcast-springboot-client.yaml
-$ kubectl delete -f hazelcast-cluster.yaml</pre>
+<pre>kubectl delete -f hazelcast-client.yaml
+kubectl delete -f hazelcast-cluster.yaml</pre>
 </div>
 </div>
 </div>
