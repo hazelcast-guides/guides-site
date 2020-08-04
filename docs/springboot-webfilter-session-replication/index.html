@@ -227,7 +227,7 @@ from nav.
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide will get you started to use Hazelcast as for the Spring Boot session replication.</p>
+<p>This guide will get you started to use Hazelcast for the Spring Boot session replication.</p>
 </div>
 <div class="paragraph">
 <p>You can see the whole project <a href="https://github.com/hazelcast-guides/springboot-webfilter-session-replication">here.</a></p>
@@ -238,7 +238,7 @@ from nav.
 <h2 id="_what_youll_learn"><a class="anchor" href="#_what_youll_learn"></a>What You’ll Learn</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this guide, you&#8217;ll deploy a Spring Boot application which uses Hazelcast for sessions replication.</p>
+<p>In this guide, you&#8217;ll deploy two Spring Boot applications which use Hazelcast for session replication.</p>
 </div>
 </div>
 </div>
@@ -264,7 +264,7 @@ from nav.
 <h2 id="_spring_boot_application"><a class="anchor" href="#_spring_boot_application"></a>Spring Boot Application</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In our case, let&#8217;s have a simple web application with the following controller and HTML template.</p>
+<p>Let&#8217;s have a simple web application with the following controller and the HTML template.</p>
 </div>
 <div class="listingblock">
 <div class="title">WebController.java</div>
@@ -301,10 +301,10 @@ public class WebController {
 </div>
 </div>
 <div class="paragraph">
-<p>When you start the application and open the browser at <a href="http://localhost:8080" class="bare">http://localhost:8080</a>, you should see an information with the current session ID and the number of hits (number of times you refreshed the browser).</p>
+<p>When you start the application and open the browser at <a href="http://localhost:8080" class="bare">http://localhost:8080</a>, you should see a piece of information with the current session ID and the number of hits (number of times you refreshed the browser).</p>
 </div>
 <div class="paragraph">
-<p>Now, the problem is that if you start two instances of your application, then the counts for each of them would be completely separate. That is because each Spring Boot application replica stores it&#8217;s sessions separately. What&#8217;s more, if one of the application crashes, the session data is lost. That is what we want to change with the use of Hazelcast.</p>
+<p>Now, the problem is that if you start two instances of your application, then the counts for each of them would be completely separate. That is because each Spring Boot application replica stores its sessions separately. What&#8217;s more, if the application crashes, the session data stored in that instance will be lost. That is what we want to change with the use of Hazelcast.</p>
 </div>
 </div>
 </div>
@@ -336,7 +336,7 @@ public class WebController {
 <pre>&lt;dependency&gt;
     &lt;groupId&gt;com.hazelcast&lt;/groupId&gt;
     &lt;artifactId&gt;hazelcast-all&lt;/artifactId&gt;
-    &lt;version&gt;4.0.2&lt;/version&gt;
+    &lt;version&gt;${version.hazelcast}&lt;/version&gt;
 &lt;/dependency&gt;</pre>
 </div>
 </div>
@@ -360,7 +360,7 @@ public WebFilter webFilter(HazelcastInstance hazelcastInstance) {
 </div>
 </div>
 <div class="paragraph">
-<p>This way, we defined Hazelcast configuration and used the embedded Hazelcast instance to enable session replication.</p>
+<p>This way, we defined a Hazelcast configuration and used an embedded Hazelcast instance to enable session replication.</p>
 </div>
 </div>
 </div>
@@ -372,12 +372,12 @@ public WebFilter webFilter(HazelcastInstance hazelcastInstance) {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>mvn spring-boot:run
-SERVER_PORT=8081 mvn spring-boot:run</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn spring-boot:run
+SERVER_PORT=8081 mvn spring-boot:run</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You should see in the logs that both embedded Hazelcast instances formed one cluster.</p>
+<p>You should see in the logs that both embedded Hazelcast instances formed a cluster.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -409,7 +409,7 @@ SERVER_PORT=8081 mvn spring-boot:run</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>That means that both applications share the same session data store.</p>
+<p>That means both applications share the same session data store.</p>
 </div>
 </div>
 </div>
@@ -417,7 +417,20 @@ SERVER_PORT=8081 mvn spring-boot:run</pre>
 <h2 id="_whats_more"><a class="anchor" href="#_whats_more"></a>What&#8217;s more?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Spring Boot is really well integrated with Hazelcast. You can check the other guide <a href="../caching-springboot/" class="page">Caching with Spring Boot and Hazelcast</a>. You can also set up your Hazelcast in the client-server topology instead of using embedded Hazelcast.</p>
+<p>Spring Boot is integrated well with Hazelcast. You can check other Spring Boot guides:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../caching-springboot/" class="page">Caching with Spring Boot and Hazelcast</a></p>
+</li>
+<li>
+<p><a href="../springboot-hibernate/" class="page">Hibernate Second-Level Cache by Hazelcast</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can also set up your Hazelcast in the client-server topology instead of using embedded Hazelcast.</p>
 </div>
 </div>
 </div>
