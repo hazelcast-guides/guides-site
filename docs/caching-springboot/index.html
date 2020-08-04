@@ -238,7 +238,7 @@ from nav.
 <h2 id="_what_youll_learn"><a class="anchor" href="#_what_youll_learn"></a>What You’ll Learn</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this guide, you&#8217;ll deploy a Spring Boot application which uses Hazelcast as a cache manager.</p>
+<p>In this guide, you&#8217;ll deploy a Spring Boot application that uses Hazelcast as a cache manager.</p>
 </div>
 </div>
 </div>
@@ -291,8 +291,12 @@ from nav.
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@RestController
 @RequestMapping("/books")
 public class BookController {
-    @Autowired
-    private BookService bookService;
+
+    private final BookService bookService;
+
+    BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @GetMapping("/{isbn}")
     public String getBookNameByIsbn(@PathVariable("isbn") String isbn) {
@@ -316,7 +320,8 @@ public class BookService {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         }
         return "Sample Book Name";
     }
@@ -324,7 +329,10 @@ public class BookService {
 </div>
 </div>
 <div class="paragraph">
-<p>If we started the application, then every call to the endpoint <code>/books/&lt;isbn&gt;</code> would go to the method <code>findBookNameByIsbn()</code> which in turn would first check the cache. Only if it does not find value in the cache, the method <code>findBookInSlowSource()</code> would be executed.</p>
+<p>If we started the application, then every call to the endpoint <code>/books/&lt;isbn&gt;</code> would go to the method <code>findBookNameByIsbn()</code>, which in turn would first check the cache.</p>
+</div>
+<div class="paragraph">
+<p>Only if it does not find value in the cache, the method <code>findBookInSlowSource()</code> would be executed.</p>
 </div>
 </div>
 </div>
@@ -345,7 +353,7 @@ public class BookService {
 </div>
 </div>
 <div class="paragraph">
-<p>Then, you need to add Hazelcast configuration in one of the following manners:</p>
+<p>Then, you need to add Hazelcast configuration using one of the below options:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -382,7 +390,7 @@ public class BookService {
 <h2 id="_starting_the_application"><a class="anchor" href="#_starting_the_application"></a>Starting the Application</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To start the application, run the following command.</p>
+<p>To start the application, run the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -390,7 +398,7 @@ public class BookService {
 </div>
 </div>
 <div class="paragraph">
-<p>You should see in the logs that embedded Hazelcast has started.</p>
+<p>You should see in the logs that embedded Hazelcast has started:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -405,7 +413,7 @@ public class BookService {
 <h2 id="_testing_the_application"><a class="anchor" href="#_testing_the_application"></a>Testing the Application</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can test the application by executing the following command.</p>
+<p>You can test the application by executing the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -414,7 +422,7 @@ Sample Book Name</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The first time you execute this command it should take some time to get the response. However, when you try it again, it should be instant. That means that the cache is used.</p>
+<p>The first time you execute this command, it should take some time to get the response. However, when you try it again, it should be instant. That means that the cache is used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -428,7 +436,7 @@ Sample Book Name</pre>
 <h2 id="_whats_more"><a class="anchor" href="#_whats_more"></a>What&#8217;s more?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Spring Boot is really well integrated with Hazelcast and vice-versa. If you want to use Hazelcast in the client-server topology, then it&#8217;s enough if you create <code>hazelcast-client.yaml</code> file instead of <code>hazelcast.yaml</code> on your classpath. And that&#8217;s it! You configured Hazelcast client.</p>
+<p>If you want to use Hazelcast in the client-server topology, then it&#8217;s enough to place <code>hazelcast-client.yaml</code> file instead of <code>hazelcast.yaml</code> on your classpath. And that&#8217;s it! You configured a Hazelcast client.</p>
 </div>
 <div class="paragraph">
 <p>If you want to read more, check out the official documentation <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-hazelcast">Spring Boot: Hazelcast</a>.</p>
