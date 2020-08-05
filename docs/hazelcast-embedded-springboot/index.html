@@ -288,7 +288,7 @@ from nav.
 <h2 id="_using_hazelcast_in_the_application"><a class="anchor" href="#_using_hazelcast_in_the_application"></a>Using Hazelcast in the Application</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If Hazelcast is on the classpath and a suitable configuration is found, Spring Boot auto-configures a HazelcastInstance that you can inject in your application. In the <code>pom.xml</code> file, you can see Hazelcast is added as a dependency:</p>
+<p>If Hazelcast is on the classpath and a suitable configuration is found, Spring Boot auto-configures a <code>HazelcastInstance</code> that you can inject into your application. In the <code>pom.xml</code> file, you can see Hazelcast is added as a dependency:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -300,7 +300,7 @@ from nav.
 </div>
 </div>
 <div class="paragraph">
-<p>Hazelcast configuration (<code>hazelcast.yaml</code>) is placed under <code>src/main/resources/</code> folder. Now, we only need to auto-wire <code>HazelcastInstance</code> bean in <code>CommandController</code> and use it to access to Hazelcast data structures:</p>
+<p>Hazelcast configuration (<code>hazelcast.yaml</code>) is placed under <code>src/main/resources/</code> folder. We only need to auto-wire <code>HazelcastInstance</code> bean in <code>CommandController</code> and use it to access to Hazelcast data structures:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -352,7 +352,7 @@ public class CommandController {
 </div>
 </div>
 <div class="paragraph">
-<p>Then rerun the application in another terminal. But this time, note that you need to set a different value for the <code>server.port</code>.</p>
+<p>Then rerun the application on another terminal. Note that you need to set a different value for the <code>server.port</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -360,7 +360,7 @@ public class CommandController {
 </div>
 </div>
 <div class="paragraph">
-<p>After both application instances initialized, you should see the Hazelcast cluster formation in the output similar below:</p>
+<p>After both application instances are initialized, you should see the Hazelcast cluster formation in the output similar to below:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -371,7 +371,7 @@ public class CommandController {
 </div>
 </div>
 <div class="paragraph">
-<p>Now, you can issue HTTP requests to put and get data back. Firstly, run the following command to put the data into Hazelcast distributed map:</p>
+<p>Now, you can issue HTTP requests to put and get data back. Run the following command to put the data into Hazelcast distributed map:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -395,7 +395,7 @@ public class CommandController {
 <h2 id="_testing_the_application"><a class="anchor" href="#_testing_the_application"></a>Testing the Application</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To run the integration tests, run the following command in terminal:</p>
+<p>To run the integration tests, run the following command in terminal. But before, make sure to kill the running application instances.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -421,7 +421,7 @@ public class CommandController {
 <h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this guide, we developed a simple application that stores the data in a Hazelcast instance. We started two application instances, and they formed a Hazelcast cluster. Since the data was shared among Hazelcast cluster instances, we could access it from both application instances.</p>
+<p>In this guide, we developed a simple Spring Boot application that stores the data in a Hazelcast instance. We started two application instances, and they formed a Hazelcast cluster. We pushed data to an application instance, and since the data was shared among Hazelcast cluster instances, we could access it from both application instances.</p>
 </div>
 </div>
 </div>
@@ -431,10 +431,10 @@ public class CommandController {
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#kubernetes-springboot-embedded:ROOT:index.adoc" class="page unresolved">Hazelcast with SpringBoot in Kubernetes</a></p>
+<p><a href="../caching-micronaut/" class="page">Hazelcast in Micronaut</a></p>
 </li>
 <li>
-<p><a href="../caching-micronaut/" class="page">Hazelcast in Micronaut</a></p>
+<p><a href="../hazelcast-embedded-microprofile/" class="page">Hazelcast Embedded Microprofile</a></p>
 </li>
 <li>
 <p><a href="../hazelcast-client-quarkus/" class="page">Hazelcast Client for Quarkus</a></p>
