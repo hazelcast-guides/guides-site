@@ -241,7 +241,7 @@ from nav.
 <p>In this guide, you will learn how to use Hazelcast IMDG within Microprofile microservices.</p>
 </div>
 <div class="paragraph">
-<p>The Microprofile application contains two REST controllers which helps you to put data and read it back. The application initializes a single Hazelcast IMDG member instance which is used to keep the data. When you run the application multiple times, Hazelcast IMDG instances build a cluster and share the data.</p>
+<p>The Microprofile application contains three endpoints which helps you to put, read and list the data. The application initializes a single Hazelcast IMDG member instance which is used to keep the data. When you run the application multiple times, Hazelcast IMDG instances build a cluster and share the data.</p>
 </div>
 </div>
 </div>
@@ -250,6 +250,9 @@ from nav.
 <div class="sectionbody">
 <div class="ulist">
 <ul>
+<li>
+<p>~ 10 mins</p>
+</li>
 <li>
 <p>A text editor or IDE</p>
 </li>
@@ -326,6 +329,11 @@ map.get(1);
 map.putIfAbsent(1, "another_value");</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_the_microprofile_application"><a class="anchor" href="#_running_the_microprofile_application"></a>Running the Microprofile Application</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Now, let&#8217;s build the servers and then deploy the applications.</p>
 </div>
@@ -393,6 +401,21 @@ Size: 2
 Hazelcast instance. We started two application instances, and they formed a
 Hazelcast cluster. Since the data was shared among Hazelcast cluster instances,
 we could access it from both application instances.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../hazelcast-embedded-springboot/" class="page">Hazelcast Embedded Spring Boot</a></p>
+</li>
+<li>
+<p><a href="../hazelcast-client-quarkus/" class="page">Hazelcast Client for Quarkus</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
