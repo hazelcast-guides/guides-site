@@ -1,6 +1,6 @@
 site:
   title: Hazelcast Guides
-  url: https://hazelcast.org
+  url: https://guides.hazelcast.org
   start_page: home::index.adoc
 urls:
   html_extension_style: indexify
@@ -55,5 +55,5 @@ content:
       start_path: doc
 ui:
   bundle:
-    url: https://github.com/hazelcast-guides/guides-ui/releases/download/v5/ui-bundle.zip
+    url: https://github.com/hazelcast-guides/guides-ui/releases/download/v6/ui-bundle.zip
     snapshot: true
