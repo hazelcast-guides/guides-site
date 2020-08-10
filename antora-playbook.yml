@@ -55,5 +55,5 @@ content:
       start_path: doc
 ui:
   bundle:
-    url: https://github.com/hazelcast-guides/guides-ui/releases/download/v6/ui-bundle.zip
+    url: https://github.com/hazelcast-guides/guides-ui/releases/download/v7/ui-bundle.zip
     snapshot: true
