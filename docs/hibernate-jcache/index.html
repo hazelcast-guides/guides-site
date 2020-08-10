@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Getting Started with Hibernate Second-Level Cache and Hazelcast with JCache :: Hazelcast Guides</title>
-    <link rel="canonical" href="https://hazelcast.org/hibernate-jcache/">
+    <link rel="canonical" href="https://guides.hazelcast.org/hibernate-jcache/">
     <meta name="generator" content="Antora 2.3.3">
     <link rel="stylesheet" href="../_/css/site.css">
     <link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
@@ -23,37 +23,14 @@
     </div>
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
-        <!-- a class="navbar-item" href="#">Home</a>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Products</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">Product A</a>
-            <a class="navbar-item" href="#">Product B</a>
-            <a class="navbar-item" href="#">Product C</a>
-          </div>
-        </div>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Services</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">Service A</a>
-            <a class="navbar-item" href="#">Service B</a>
-            <a class="navbar-item" href="#">Service C</a>
-          </div>
-        </div>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Resources</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">Resource A</a>
-            <a class="navbar-item" href="#">Resource B</a>
-            <a class="navbar-item" href="#">Resource C</a>
-          </div>
-        </div>
-        <div class="navbar-item">
-          <span class="control">
-            <a class="button is-primary" href="https://hazelcast.org/">hazelcast.org</a>
-          </span>
-        </div -->
-        <a class="navbar-item" href="https://hazelcast.org/">hazelcast.org</a>
+        <a class="navbar-item" href="https://hazelcast.org/">
+          hazelcast.org
+           <img
+              class="external-link"
+              alt="Hazelcast"
+              srcset="../_/img/external-link.png 1x, ../_/img/external-link@2x.png 2x, ../_/img/external-link@3x.png 3x"
+            />
+          </a>
       </div>
     </div>
   </nav>
@@ -63,144 +40,6 @@
 <div class="nav-container" data-component="hibernate-jcache" data-version="master">
   <aside class="nav">
     <div class="panels">
-<!--
-<div class="nav-panel-explore is-active" data-panel="explore">
-  <div class="context">
-    <span class="title">Jcache SPI for using Hazelcast as L2C for Hibernate</span>
-    <span class="version">master</span>
-  </div>
-  <ul class="components">
-    <li class="component">
-      <span class="title">Caching with Spring Boot and Hazelcast</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../caching-springboot/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Embedded Hazelcast on Kubernetes</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../kubernetes-embedded/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Getting Started with Embedded Hazelcast on ECS</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../ecs-embedded/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Getting Started with Hazelcast and Hibernate Second-Level Cache</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../springboot-hibernate/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Getting Started with Hazelcast using Micronaut</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../caching-micronaut/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Getting Started with Hazelcast using Microprofile</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../hazelcast-embedded-microprofile/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Getting Started with Hazelcast using Spring Boot</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../hazelcast-embedded-springboot/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Hazelcast Client for Quarkus</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../hazelcast-client-quarkus/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Hazelcast Guides</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../home/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Hazelcast with Istio Service Mesh</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../istio/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component is-current">
-      <span class="title">Jcache SPI for using Hazelcast as L2C for Hibernate</span>
-      <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="./">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Load data from Oracle CDC to Hazelcast via Striim</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../striim-cdc/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Session Replication with Spring Boot and Hazelcast</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../springboot-webfilter-session-replication/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Spring Boot Tomcat Session Replication using Hazelcast</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../springboot-tomcat-session-replication/">master</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Templates</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../templates/v0.1/">v0.1</a>
-        </li>
-      </ul>
-    </li>
-    <li class="component">
-      <span class="title">Using Spring Boot with JCache and Hazelcast</span>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../caching-springboot-jcache/">master</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
- -->
     </div>
   </aside>
 </div>
@@ -213,13 +52,7 @@ from nav.
 
 <main class="article">
 <div class="toolbar" role="navigation">
-
 <button class="nav-toggle"></button>
-<!--
-<nav class="breadcrumbs" aria-label="breadcrumbs">
-</nav>
-  <div class="edit-this-page"><a href="https://github.com/hazelcast-guides/hibernate-jcache/edit/master/doc/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
-  -->
 </div>
   <div class="content">
 <article class="guide-content">
