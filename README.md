@@ -1,4 +1,4 @@
-# How To Publish A Guide On [GitHub Pages](https://hazelcast-guides.github.io/guides-site/home/index.html)
+# How To Publish A Guide On [GitHub Pages](https://guides.hazelcast.org)
 
 - In the guide repository to be published, create `antora` files:
 
