@@ -1,4 +1,4 @@
-# How To Publish A Guide On [GitHub Pages](https://guides.hazelcast.org)
+# How To Publish A Guide On [Guides Website](https://guides.hazelcast.org)
 
 - In the guide repository to be published, create `antora` files:
 
@@ -49,4 +49,4 @@ New site root is created at docs/index.html
 $ open docs/index.html
 ```
 
-Push if everything looks good and it will be published on GitHub pages in a while.
+Push if everything looks good and it will be published on the website in a while.
