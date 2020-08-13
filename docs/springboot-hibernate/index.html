@@ -174,7 +174,6 @@ spring.jpa.properties.hibernate.cache.region.factory_class=com.hazelcast.hiberna
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Entity
-@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Book { ... }</code></pre>
 </div>
