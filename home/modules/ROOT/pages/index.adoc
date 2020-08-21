@@ -83,6 +83,10 @@ Getting Started with Embedded Hazelcast on Kubernetes.
 
 Getting Started with Hazelcast Embedded and Client/Server topologies in Istio Service Mesh.
 
+[.guide]
+=== xref:vmware-tanzu:ROOT:index.adoc[Hazelcast Enterprise IMDG for VMware Tanzu]
+
+Getting Started with Hazelcast Enterprise IMDG for VMware Tanzu
 
 // ---------------------- Group 4
 
