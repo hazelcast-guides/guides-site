@@ -2,6 +2,8 @@ site:
   title: Hazelcast Guides
   url: https://guides.hazelcast.org
   start_page: home::index.adoc
+  keys:
+    google_analytics: 'UA-3921306-4'
 urls:
   html_extension_style: indexify
 content:
