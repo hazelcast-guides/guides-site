@@ -58,6 +58,9 @@ content:
     - url: https://github.com/hazelcast-guides/vmware-tanzu
       branches: master
       start_path: doc
+asciidoc:
+  extensions:
+  - ./lib/tabs-block.js
 ui:
   bundle:
     url: https://github.com/hazelcast-guides/guides-ui/releases/download/v10/ui-bundle.zip
