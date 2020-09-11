@@ -14,7 +14,7 @@ Start using Hazelcast in your applications.
 == {empty}
 
 [.guide]
-=== xref:hazelcast-embedded-springboot:ROOT:index.adoc[Hazelcast with SpringBoot]
+=== image:logo-springboot.png[] xref:hazelcast-embedded-springboot:ROOT:index.adoc[Hazelcast with SpringBoot]
 
 Getting Started with Hazelcast using Spring Boot.
 
