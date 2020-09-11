@@ -20,13 +20,13 @@ Getting Started with Hazelcast using Spring Boot.
 
 
 [.guide]
-=== xref:hazelcast-embedded-microprofile:ROOT:index.adoc[Hazelcast with Microprofile]
+=== image:logo-microprofile.png[] xref:hazelcast-embedded-microprofile:ROOT:index.adoc[Hazelcast with Microprofile]
 
 Getting Started with Hazelcast using Microprofile.
 
 
 [.guide]
-=== xref:hazelcast-client-quarkus:ROOT:index.adoc[Hazelcast Client with Quarkus]
+=== image:logo-quarkus.png[] xref:hazelcast-client-quarkus:ROOT:index.adoc[Hazelcast Client with Quarkus]
 
 Getting Started with Hazelcast using Quarkus.
 
@@ -41,17 +41,17 @@ Cache your data via Hazelcast in microservices.
 
 
 [.guide]
-=== xref:caching-micronaut:ROOT:index.adoc[Caching in Micronaut Microservices]
+=== image:logo-micronaut.png[] xref:caching-micronaut:ROOT:index.adoc[Caching in Micronaut Microservices]
 
 Cache data with Hazelcast in Micronaut.
 
 [.guide]
-=== xref:caching-springboot:ROOT:index.adoc[Caching in SpringBoot Microservices]
+=== image:logo-springboot.png[] xref:caching-springboot:ROOT:index.adoc[Caching in SpringBoot Microservices]
 
 Use Hazelcast as Cache Manager in Spring Boot.
 
 [.guide]
-=== xref:caching-springboot-jcache:ROOT:index.adoc[Caching in SpringBoot Microservices via JCache Provider]
+=== image:logo-springboot.png[] xref:caching-springboot-jcache:ROOT:index.adoc[Caching in SpringBoot Microservices via JCache Provider]
 
 Use Hazelcast via JCache provider in Spring Boot.
 
@@ -67,26 +67,26 @@ Use Hazelcast in your cloud architecture.
 
 
 [.guide]
-=== xref:ecs-embedded:ROOT:index.adoc[Embedded Hazelcast on ECS]
+=== image:logo-ecs.png[] xref:ecs-embedded:ROOT:index.adoc[Embedded Hazelcast on ECS]
 
 Getting Started with Hazelcast on ECS.
 
 
 [.guide]
-=== xref:kubernetes-embedded:ROOT:index.adoc[Embedded Hazelcast on Kubernetes]
+=== image:logo-kubernetes.png[] xref:kubernetes-embedded:ROOT:index.adoc[Embedded Hazelcast on Kubernetes]
 
 Getting Started with Embedded Hazelcast on Kubernetes.
 
 
 [.guide]
-=== xref:istio:ROOT:index.adoc[Hazelcast with Istio Service Mesh]
+=== image:logo-istio.png[] xref:istio:ROOT:index.adoc[Hazelcast with Istio Service Mesh]
 
 Getting Started with Hazelcast Embedded and Client/Server topologies in Istio Service Mesh.
 
 [.guide]
-=== xref:vmware-tanzu:ROOT:index.adoc[Hazelcast Enterprise IMDG for VMware Tanzu]
+=== image:logo-vmware-tanzu.png[] xref:vmware-tanzu:ROOT:index.adoc[Hazelcast Enterprise IMDG for VMware Tanzu]
 
-Getting Started with Hazelcast Enterprise IMDG for VMware Tanzu
+Getting Started with Hazelcast Enterprise IMDG for VMware Tanzu.
 
 // ---------------------- Group 4
 
@@ -97,30 +97,30 @@ Getting Started with Hazelcast Enterprise IMDG for VMware Tanzu
 == {empty}
 
 [.guide]
-=== xref:springboot-webfilter-session-replication:ROOT:index.adoc[Session Replication with Spring Boot and Hazelcast]
+=== image:logo-springboot.png[] xref:springboot-webfilter-session-replication:ROOT:index.adoc[Session Replication with Spring Boot and Hazelcast]
 
 Getting Started with Hazelcast using Web Filter Based Session Replication in Spring Boot.
 
 
 [.guide]
-=== xref:springboot-tomcat-session-replication:ROOT:index.adoc[Tomcat Session Replication with Spring Boot and Hazelcast]
+=== image:logo-springboot.png[] xref:springboot-tomcat-session-replication:ROOT:index.adoc[Tomcat Session Replication with Spring Boot and Hazelcast]
 
 Getting Started with Hazelcast using Session Manager Based Session Replication in Spring Boot.
 
 
 [.guide]
-=== xref:springboot-hibernate:ROOT:index.adoc[Hazelcast L2C for Hibernate in SpringBoot]
+=== image:logo-springboot.png[] xref:springboot-hibernate:ROOT:index.adoc[Hazelcast L2C for Hibernate in SpringBoot]
 
 Getting Started with Hazelcast and Hibernate Second-Level Cache.
 
 
 [.guide]
-=== xref:hibernate-jcache:ROOT:index.adoc[Using JCache for Hibernate L2C]
+=== image:logo-hibernate.png[] xref:hibernate-jcache:ROOT:index.adoc[Using JCache for Hibernate L2C]
 
 Jcache SPI for using Hazelcast as L2C for Hibernate.
 
 
 [.guide]
-=== xref:striim-cdc:ROOT:index.adoc[Oracle CDC and Hazelcast via Striim]
+=== image:logo-striim.png[] xref:striim-cdc:ROOT:index.adoc[Oracle CDC and Hazelcast via Striim]
 
 Load data from Oracle CDC to Hazelcast via Striim.
