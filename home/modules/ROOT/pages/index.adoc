@@ -88,6 +88,11 @@ Getting Started with Hazelcast Embedded and Client/Server topologies in Istio Se
 
 Getting Started with Hazelcast Enterprise IMDG for VMware Tanzu.
 
+[.guide]
+=== image:logo-terraform.png[] xref:terraform-quickstarts:ROOT:index.adoc[Hazelcast Cluster with Terraform]
+
+Deploy Hazelcast cluster on cloud using Terraform.
+
 // ---------------------- Group 4
 
 [.group-header]

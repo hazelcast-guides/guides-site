@@ -7,6 +7,7 @@ site:
 urls:
   html_extension_style: indexify
 content:
+  branches: master # ignore "v*" branches.
   sources:
     - url: . # home
       branches: HEAD
@@ -14,49 +15,36 @@ content:
     - url: https://github.com/hazelcast-guides/adoc-templates.git
       branches: antora-doc
     - url: https://github.com/hazelcast-guides/hazelcast-embedded-springboot
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/springboot-hibernate
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/hibernate-jcache
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/istio
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/caching-micronaut
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/kubernetes-embedded
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/hazelcast-embedded-microprofile
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/hazelcast-client-quarkus
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/springboot-webfilter-session-replication
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/caching-springboot
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/ecs-embedded
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/striim-cdc
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/caching-springboot-jcache
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/springboot-tomcat-session-replication
-      branches: master
       start_path: doc
     - url: https://github.com/hazelcast-guides/vmware-tanzu
-      branches: master
+      start_path: doc
+    - url: https://github.com/hazelcast-guides/terraform-quickstarts
       start_path: doc
 asciidoc:
   extensions:
