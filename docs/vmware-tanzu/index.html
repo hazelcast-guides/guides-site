@@ -324,7 +324,7 @@ You can create Hazelcast IMDG cluster without Management Center via following on
 <p>To put/get data into Hazelcast IMDG map, run following commands:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">    $ export APP_ROUTE=`cf app hz-app | grep routes | awk '{ print $2 }'`
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">    $ export APP_ROUTE=`cf app APP_NAME | grep routes | awk '{ print $2 }'`
     $ curl -s "http://${APP_ROUTE}/put?key=1&amp;value=1"
     $ curl -s "http://${APP_ROUTE}/get?key=1"</code></pre>
 </div>
