@@ -71,19 +71,6 @@ Use Hazelcast in your cloud architecture.
 
 Getting Started with Hazelcast on ECS.
 
-
-[.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes-embedded:ROOT:index.adoc[Embedded Hazelcast on Kubernetes]
-
-Getting Started with Embedded Hazelcast on Kubernetes.
-
-
-[.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes-external-client:ROOT:index.adoc[External Hazelcast Client on Kubernetes]
-
-Getting Started with External Hazelcast Client on Kubernetes.
-
-
 [.guide]
 === image:logo-istio.png[] xref:istio:ROOT:index.adoc[Hazelcast with Istio Service Mesh]
 
@@ -135,3 +122,27 @@ Jcache SPI for using Hazelcast as L2C for Hibernate.
 === image:logo-striim.png[] xref:striim-cdc:ROOT:index.adoc[Oracle CDC and Hazelcast via Striim]
 
 Load data from Oracle CDC to Hazelcast via Striim.
+
+// ---------------------- Group 5
+
+[.group-header]
+== Kubernetes
+Use Hazelcast with Kubernetes.
+
+[.guides-grid]
+== {empty}
+
+[.guide]
+=== image:logo-kubernetes.png[] xref:kubernetes-embedded:ROOT:index.adoc[Embedded Hazelcast on Kubernetes]
+
+Getting Started with Embedded Hazelcast on Kubernetes.
+
+[.guide]
+=== image:logo-kubernetes.png[] xref:kubernetes-external-client:ROOT:index.adoc[External Hazelcast Client on Kubernetes]
+
+Getting Started with External Hazelcast Client on Kubernetes.
+
+[.guide]
+=== image:logo-kubernetes.png[] xref:kubernetes-sidecar:ROOT:index.adoc[Hazelcast as Sidecar container]
+
+Getting Started with Hazelcast as Sidecar container.

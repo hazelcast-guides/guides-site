@@ -49,6 +49,9 @@ content:
     - url: https://github.com/hazelcast-guides/kubernetes-external-client
       start_path: doc
       branches: main
+    - url: https://github.com/hazelcast-guides/kubernetes-sidecar
+      start_path: doc
+      branches: main
 asciidoc:
   extensions:
   - ./lib/tabs-block.js
