@@ -79,6 +79,12 @@ Getting Started with Embedded Hazelcast on Kubernetes.
 
 
 [.guide]
+=== image:logo-kubernetes.png[] xref:kubernetes-external-client:ROOT:index.adoc[Embedded Hazelcast on Kubernetes]
+
+Getting Started with External Hazelcast Client on Kubernetes.
+
+
+[.guide]
 === image:logo-istio.png[] xref:istio:ROOT:index.adoc[Hazelcast with Istio Service Mesh]
 
 Getting Started with Hazelcast Embedded and Client/Server topologies in Istio Service Mesh.

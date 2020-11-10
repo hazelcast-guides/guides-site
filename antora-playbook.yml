@@ -46,6 +46,9 @@ content:
       start_path: doc
     - url: https://github.com/hazelcast-guides/terraform-quickstarts
       start_path: doc
+    - url: https://github.com/hazelcast-guides/kubernetes-external-client
+      start_path: doc
+      branches: main
 asciidoc:
   extensions:
   - ./lib/tabs-block.js
