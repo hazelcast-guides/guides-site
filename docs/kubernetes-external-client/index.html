@@ -109,7 +109,7 @@ To download it, execute the following command.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">git clone https://github.com/hazelcast-guides/kubernetes-external-client.git</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">git clone https://github.com/hazelcast-guides/kubernetes-external-client.git</code></pre>
 </div>
 </div>
 </div>
@@ -117,50 +117,6 @@ To download it, execute the following command.</p>
 <div class="sect1">
 <h2 id="_configure_hazelcast_cluster_on_kubernetes"><a class="anchor" href="#_configure_hazelcast_cluster_on_kubernetes"></a>Configure Hazelcast cluster on Kubernetes</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>As the first step, you need to start Hazelcast cluster in such a way that each member is exposed with a separate public IP/port. In Kubernetes PODs can be accessed from outside only via services, so the configuration requires creating a separate service (LoadBalancer or NodePort) for each Hazelcast member POD. The simplest way to achieve it is to use <a href="https://metacontroller.app/">Metacontroller</a> plugin with <a href="https://github.com/GoogleCloudPlatform/metacontroller/tree/master/examples/service-per-pod">Service-Per-Pod</a> Decorator Controller.</p>
-</div>
-<div class="sect2">
-<h3 id="_install_metacontroller_plugin"><a class="anchor" href="#_install_metacontroller_plugin"></a>Install Metacontroller plugin</h3>
-<div class="paragraph">
-<p>To install <a href="https://metacontroller.app/">Metacontroller</a> plugin, it&#8217;s enough to execute the following commands:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Create metacontroller namespace.
-kubectl create namespace metacontroller
-# Create metacontroller service account and role/binding.
-kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/metacontroller/master/manifests/metacontroller-rbac.yaml
-# Create CRDs for Metacontroller APIs, and the Metacontroller StatefulSet.
-kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/metacontroller/master/manifests/metacontroller.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you have any issues while creating Metacontroller, it may mean that you don&#8217;t have ClusterRole access to your cluster. Please check <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control#defining_permissions_in_a_role">this</a> for details.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_install_service_per_pod_decoratorcontroller"><a class="anchor" href="#_install_service_per_pod_decoratorcontroller"></a>Install Service-Per-Pod DecoratorController</h3>
-<div class="paragraph">
-<p>To install Service-Per-Pod Decorator Controller, you need to execute the following commands.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl create configmap service-per-pod-hooks -n metacontroller --from-file=hooks
-kubectl apply -f service-per-pod.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This Decorator Controller automatically creates a service for each POD marked with the following annotations.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">annotations:
-    service-per-pod-label: "statefulset.kubernetes.io/pod-name"
-    service-per-pod-ports: "5701:5701"</code></pre>
-</div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="_configure_service_account"><a class="anchor" href="#_configure_service_account"></a>Configure Service Account</h3>
 <div class="paragraph">
@@ -168,11 +124,11 @@ kubectl apply -f service-per-pod.yaml</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl apply -f rbac.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">kubectl apply -f rbac.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The Service Account 'hazelcast-service-account' was created and you can use it in all further steps.</p>
+<p>The Service Account 'hazelcast-service-account' was created, and you can use it in all further steps.</p>
 </div>
 </div>
 <div class="sect2">
@@ -182,7 +138,19 @@ kubectl apply -f service-per-pod.yaml</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl apply -f hazelcast-cluster.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">kubectl apply -f hazelcast-cluster.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To check the deployment you can run the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">$ kubectl get pods
+NAME          READY   STATUS    RESTARTS   AGE
+hazelcast-0   1/1     Running   0          2m
+hazelcast-1   1/1     Running   0          2m
+hazelcast-2   1/1     Running   0          2m</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -200,11 +168,103 @@ kubectl apply -f service-per-pod.yaml</code></pre>
 </table>
 </div>
 <div class="paragraph">
+<p>As the first step, you need to start Hazelcast cluster in such a way that each member is exposed with a separate public IP/port. In Kubernetes PODs can be accessed from outside only via services, so the configuration requires creating a separate service (LoadBalancer or NodePort) for each Hazelcast member POD. This can be done manually or using <a href="https://metacontroller.app/">Metacontroller</a> plugin with <a href="https://github.com/metacontroller/metacontroller/tree/master/examples/service-per-pod">Service-Per-Pod</a> Decorator Controller.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_manual"></a>Manual</p>
+</li>
+<li>
+<p><a id="tabset1_metacontroller"></a>Metacontroller</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_manual">
+<div class="paragraph">
+<p>To create a <code>loadbalancer</code> for each running Hazelcast pod you need to run the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">for pod in $(kubectl get pods -o jsonpath="{.items[*].metadata.name}"); do \
+  kubectl create service loadbalancer ${pod} --tcp=5701 -o yaml --dry-run=client | kubectl set selector --local -f - "statefulset.kubernetes.io/pod-name=${pod}" -o yaml | kubectl create -f -; \
+done</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the services were created with by running the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">$ kubectl get svc
+NAME          TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)          AGE
+hazelcast-0   LoadBalancer   10.175.248.67    35.195.77.97    5701:30915/TCP   11m
+hazelcast-1   LoadBalancer   10.175.254.105   104.155.70.30   5701:30440/TCP   11m
+hazelcast-2   LoadBalancer   10.175.253.232   34.78.182.50    5701:30305/TCP   11m</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_metacontroller">
+<div class="ulist">
+<ul>
+<li>
+<p>Install Metacontroller plugin</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To install <a href="https://metacontroller.app/">Metacontroller</a> plugin, it&#8217;s enough to execute the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script"># Create metacontroller namespace.
+kubectl create namespace metacontroller
+# Create metacontroller service account and role/binding.
+kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/master/manifests/metacontroller-rbac.yaml
+# Create CRDs for Metacontroller APIs, and the Metacontroller StatefulSet.
+kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/master/manifests/metacontroller.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you have any issues while creating Metacontroller, it may mean that you don&#8217;t have ClusterRole access to your cluster. Please check <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control#defining_permissions_in_a_role">this</a> for details.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Install Service-Per-Pod DecoratorController</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To install Service-Per-Pod Decorator Controller, you need to execute the following commands.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">kubectl create configmap service-per-pod-hooks -n metacontroller --from-file=hooks
+kubectl apply -f service-per-pod.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This Decorator Controller automatically creates a service for each POD marked with the following annotations.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">annotations:
+    service-per-pod-label: "statefulset.kubernetes.io/pod-name"
+    service-per-pod-ports: "5701:5701"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
 <p>You can check that for each Hazelcast Member POD there was a service created and that Hazelcast members formed a cluster.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get all
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">$ kubectl get all
 NAME              READY     STATUS    RESTARTS   AGE
 pod/hazelcast-0   1/1       Running   0          2m
 pod/hazelcast-1   1/1       Running   0          1m
@@ -242,7 +302,7 @@ Members {size:3, ver:3} [
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl cluster-info
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">$ kubectl cluster-info
 Kubernetes master is running at https://35.233.44.52</code></pre>
 </div>
 </div>
@@ -254,7 +314,7 @@ Kubernetes master is running at https://35.233.44.52</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get secret
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">$ kubectl get secret
 NAME                                    TYPE                                  DATA   AGE
 default-token-7xd6t                     kubernetes.io/service-account-token   3      102m
 hazelcast-service-account-token-m8p82   kubernetes.io/service-account-token   3      35m</code></pre>
@@ -265,7 +325,7 @@ hazelcast-service-account-token-m8p82   kubernetes.io/service-account-token   3 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get secret hazelcast-service-account-token-m8p82 -o jsonpath={.data.token} | base64 --decode | xargs echo
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">$ kubectl get secret hazelcast-service-account-token-m8p82 -o jsonpath={.data.token} | base64 --decode | xargs echo
 eyJhbGciOiJSUzI1NiIsImtpZCI6InNfRVBNNHg1dFRlWHY1VmVNdVJtaHY3ZzZ6aEhQWWxZT2ZzNXQwcklSYzQifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImhhemVsY2FzdC1zZXJ2aWNlLWFjY291bnQtdG9rZW4tbThwODIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiaGF6ZWxjYXN0LXNlcnZpY2UtYWNjb3VudCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjhjNzJhYmU3LTgzMjYtNDk5ZC04Yzc2LWU2MzMzMDAwNzYzYyIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmhhemVsY2FzdC1zZXJ2aWNlLWFjY291bnQifQ.af6PWcxOV3IN3C-SiSa6hbgW9TlernWC3b5K1dNLVplzBdnJKI-NjacgMfd03BcVnXNLpXHFxr5gbwwguv9ZjeOAz0FrrQvs7rLRnXcQaE0x7EcG1lyfQ8utwzUvSodEQN6kbzjBF0WWClGJXdtdQvVn9lcFqDjfC6Jugk7dDEaD9W_mDjIXZEaeEtUIR5tnivGwRxG0dEpYb0nj9xAC9fjq40BTHWlbuVoFBhVl3-kPZreIiYHQYurOx30wuszuu0Ba16MbxyPB4rvzufngb8ej5S-KtUllxHiuYA4Gp01zbjb8RIsnB-OM02fCfIgG-YyyQjjD0K-BEEyuihs-0g</code></pre>
 </div>
 </div>
@@ -274,7 +334,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6InNfRVBNNHg1dFRlWHY1VmVNdVJtaHY3ZzZ6aEhQWWxZT2ZzNXQw
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get secret hazelcast-service-account-token-6s94h -o jsonpath='{.data.ca\.crt}' | base64 --decode
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">$ kubectl get secret hazelcast-service-account-token-6s94h -o jsonpath='{.data.ca\.crt}' | base64 --decode
 -----BEGIN CERTIFICATE-----
 MIIDKjCCAhKgAwIBAgIQHJPQGLRW659SCjtRVEF23TANBgkqhkiG9w0BAQsFADAv
 MS0wKwYDVQQDEyQzMjU5YmE1ZC03MWVhLTRiNGYtODZmNi0yOGFmNzYzZTg0NWYw
@@ -342,7 +402,7 @@ bnDp6Qq8bRQ6acz6CI5AaZROUQmRYmN8Aaz3THJmkfGcejzvbYux/GiD7Nxlkw==
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mvn spring-boot:run</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">mvn spring-boot:run</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -351,7 +411,7 @@ To check it works correctly, you can execute the following commands:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ curl "localhost:8080/put?key=some-key&amp;value=some-value"
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">$ curl "localhost:8080/put?key=some-key&amp;value=some-value"
 {"response":null}
 
 $ curl "localhost:8080/get?key=some-key"
@@ -363,7 +423,7 @@ $ curl "localhost:8080/get?key=some-key"
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code>Members [3] {
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">Members [3] {
 	Member [10.172.2.8]:5701 - 77fb7da6-79bd-4b5b-9c63-2c425a111c06
 	Member [10.172.0.4]:5701 - d63bd9f6-7afd-4b9b-88d3-f3b6afb749f9
 	Member [10.172.0.5]:5701 - 049fe137-9cfd-4be8-80a3-d1357a31f6f4
