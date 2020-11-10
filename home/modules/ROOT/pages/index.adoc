@@ -79,7 +79,7 @@ Getting Started with Embedded Hazelcast on Kubernetes.
 
 
 [.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes-external-client:ROOT:index.adoc[Embedded Hazelcast on Kubernetes]
+=== image:logo-kubernetes.png[] xref:kubernetes-external-client:ROOT:index.adoc[External Hazelcast Client on Kubernetes]
 
 Getting Started with External Hazelcast Client on Kubernetes.
 
