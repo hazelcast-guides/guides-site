@@ -135,3 +135,9 @@ Jcache SPI for using Hazelcast as L2C for Hibernate.
 === image:logo-striim.png[] xref:striim-cdc:ROOT:index.adoc[Oracle CDC and Hazelcast via Striim]
 
 Load data from Oracle CDC to Hazelcast via Striim.
+
+
+[.guide]
+=== xref:active-directory-authentication:ROOT:index.adoc[Active Directory Authentication]
+
+Hazelcast Kerberos authentication in Microsoft Active Directory domains.
