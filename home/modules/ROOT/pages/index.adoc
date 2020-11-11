@@ -151,6 +151,6 @@ Getting Started with Embedded Hazelcast on Kubernetes.
 Getting Started with External Hazelcast Client on Kubernetes.
 
 [.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes-sidecar:ROOT:index.adoc[Hazelcast Hazelcast as Sidecar container]
+=== image:logo-kubernetes.png[] xref:kubernetes-sidecar:ROOT:index.adoc[Hazelcast as Sidecar container]
 
 Getting Started with Hazelcast as Sidecar container.
