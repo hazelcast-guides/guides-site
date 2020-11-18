@@ -121,10 +121,10 @@ Getting Started with Hazelcast WAN Replication (Enterprise Only).
 Getting Started with Hazelcast with SSL (Enterprise Only).
 
 [.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes-hpa:ROOT:index.adoc[Kubernetes HPA for Hazelcast cluster
-]
+=== image:logo-kubernetes.png[] xref:kubernetes-hpa:ROOT:index.adoc[Kubernetes HPA for Hazelcast cluster]
 
-Getting Started with Hazelcast with SSL (Enterprise Only).
+Getting Started with Kubernetes HPA for Hazelcast cluster.
+
 // ---------------------- Group 5
 
 [.group-header]
