@@ -54,6 +54,14 @@ content:
     - url: https://github.com/hazelcast-guides/kubernetes-sidecar
       start_path: doc
       branches: main
+    - url: https://github.com/hazelcast-guides/kubernetes-hpa
+      start_path: doc
+    - url: https://github.com/hazelcast-guides/kubernetes-ssl
+      start_path: doc
+      branches: main
+    - url: https://github.com/hazelcast-guides/kubernetes-wan
+      start_path: doc
+      branches: main
 asciidoc:
   extensions:
   - ./lib/tabs-block.js
