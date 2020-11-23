@@ -130,21 +130,28 @@ client/server and embedded topologies.</p>
 <li>
 <p><a id="tabset1_client"></a>Client</p>
 </li>
+<li>
+<p><a id="tabset1_embedded"></a>Embedded</p>
+</li>
 </ul>
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset1_client">
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>You need to have a running Hazelcast cluster before using client. <code>com.hazelcast.guide.HazelcastServer</code> will
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You need to have a running Hazelcast cluster before using client. <code>com.hazelcast.guide.HazelcastServer</code> will
 start an instance with default configuration. When you start it multiple times, you will see Hazelcast members starting,
-finding each other and forming a cluster. You can also try Hazelcast CLI[<a href="https://github.com/hazelcast/hazelcast-command-line" class="bare">https://github.com/hazelcast/hazelcast-command-line</a>]
-for starting members.</p>
+finding each other and forming a cluster. You can also try <a href="https://github.com/hazelcast/hazelcast-command-line">Hazelcast CLI</a>
+for starting members.
+</td>
+</tr>
+</table>
 </div>
-<div class="exampleblock">
-<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Produces
@@ -156,15 +163,8 @@ HazelcastInstance create() {
 }</code></pre>
 </div>
 </div>
-<div class="openblock">
-<div class="content">
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Embedded</dt>
-</dl>
 </div>
-</div>
-</div>
+<div class="tab-pane" aria-labelledby="tabset1_embedded">
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -190,6 +190,7 @@ HazelcastInstance create() {
     config.addMapConfig(mapConfig);
     return Hazelcast.newHazelcastInstance(config);
 }</code></pre>
+</div>
 </div>
 </div>
 </div>
