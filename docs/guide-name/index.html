@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hazelcast for Kubernetes</title>
+    <link rel="canonical" href="https://guides.hazelcast.org/guide-name/">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../_/css/site.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3921306-4"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-3921306-4')</script>
+    <link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="../home/"></a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a href="../home/" class="navbar-home-button"></a>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://hazelcast.org/">
+          hazelcast.org
+           <img
+              class="external-link"
+              alt="Hazelcast"
+              srcset="../_/img/external-link.png 1x, ../_/img/external-link@2x.png 2x, ../_/img/external-link@3x.png 3x"
+            />
+          </a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+
+<div class="nav-container" data-component="guide-name" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+    </div>
+  </aside>
+</div>
+<!--
+nav is included to make toc visible only.
+It's not visible on the page. It needs to
+be removed after toc is made independent
+from nav.
+-->
+
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+</div>
+  <div class="content">
+<article class="guide-content">
+<h1 class="page">Hazelcast for Kubernetes</h1>
+<p class="edit-page"><a href=https://github.com/hazelcast-guides/kubernetes/edit/master/doc/modules/ROOT/pages/index.adoc>See something wrong? Edit this page.</a></p>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This sample is a guideline on how to start Hazelcast cluster on the Kubernetes environment.</p>
+</div>
+<div class="paragraph">
+<p>You can see the whole project <a href="https://github.com/hazelcast-guides/kubernetes">here.</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_youll_learn"><a class="anchor" href="#_what_youll_learn"></a>What You’ll Learn</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this guide you will deploy Hazelcast cluster to Kubernetes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Up and running <a href="https://kubernetes.io/">Kubernetes</a> version 1.9 or higher.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For development and testing, you may use <a href="https://github.com/kubernetes/minikube">Minikube</a></p>
+</li>
+<li>
+<p>You must have the Kubernetes command line tool, <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl</a>, installed</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Another important note would be that this document assumes some familiarity with <code>kubectl</code>, Kubernetes, and Docker.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deployment_steps"><a class="anchor" href="#_deployment_steps"></a>Deployment Steps</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_creating_role_binding"><a class="anchor" href="#_creating_role_binding"></a>Creating Role Binding</h3>
+<div class="paragraph">
+<p>Hazelcast uses Kubernetes API to discover nodes and that is why you need to grant certain permissions. The simplest Role Binding file looks like <code>rbac.yaml</code>. Note that you can make it more specific, since Hazelcast actually uses only certain API endpoints. Note also that if you use "DNS Lookup Discovery" instead of "REST API Discovery", then you can skip the Role Binding step at all. Read more at <a href="https://github.com/hazelcast/hazelcast-kubernetes">Hazelcast Kubernetes API Plugin</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f rbac.yaml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_config_map"><a class="anchor" href="#_creating_config_map"></a>Creating Config Map</h3>
+<div class="paragraph">
+<p>Hazelcast configuration can be stored in the Config Map. You can install it with the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f config.yaml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_secret_with_enterprise_key_enterprise_only"><a class="anchor" href="#_creating_secret_with_enterprise_key_enterprise_only"></a>Creating Secret with Enterprise Key (Enterprise Only)</h3>
+<div class="paragraph">
+<p>Hazelcast Enterprise requires the Hazelcast Enterprise License Key. You can store it as Kubernetes Secret.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This step is not required for Hazelcast Open Source.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl create secret generic hz-enterprise-license --from-literal=key=&lt;LICENSE-KEY&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_starting_hazelcast_cluster"><a class="anchor" href="#_starting_hazelcast_cluster"></a>Starting Hazelcast Cluster</h3>
+<div class="paragraph">
+<p>Finally, deploy the Hazelcast cluster:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f hazelcast.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For Hazelcast Enterprise, use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f hazelcast-enterprise.yaml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_persistent_volume"><a class="anchor" href="#_persistent_volume"></a>Persistent Volume</h3>
+<div class="paragraph">
+<p>This is a <strong>prerequisite</strong> step if you have JARs.</p>
+</div>
+<div class="paragraph">
+<p>In order to share a custom domain JARs (for example <code>EntryProcessor</code> implementations) among Hazelcast pods, you need to add a persistent volume in Kubernetes.</p>
+</div>
+<div class="paragraph">
+<p>There are many ways you can define and map volumes in Kubernetes. Types of volumes are discussed in the <a href="https://kubernetes.io/docs/concepts/storage/volumes/">official documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>Once you have created a volume, copy your custom Hazelcast JARs into the root volume directory and add it into the <code>CLASSPATH</code> environment variable.</p>
+</div>
+<div class="paragraph">
+<p>In the following example a GCE Persistent Disk named "my-hz-disk" has been already created and populated with the custom configuration.</p>
+</div>
+<div class="paragraph">
+<p>Open a text editor and add the following deployment YAML for persistent volume:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: hz-pv
+spec:
+  capacity:
+    storage: 10Gi
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  gcePersistentDisk:
+    pdName: my-hz-disk
+    fsType: ext4</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Save this file as <code>hz-pv.yaml</code>. Please also notice that <code>Reclaim Policy</code> is set as <code>Retain</code>. Therefore, contents of this folder will remain as is, between successive <code>claims</code>.</p>
+</div>
+<div class="paragraph">
+<p>Create the persistent volume:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f hz-pv.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Please note that contents of your previous deployment is preserved. If you change the claim policy to <code>RECYCLE</code>, you have to transfer all custom files to <code>&lt;your-pv-path&gt;</code> before each successive deployments.</p>
+</div>
+<div class="paragraph">
+<p>Now edit <code>hazelcast.yaml</code>, and a PersistentVolumeClaim definition to match the above PersistentVolume. Finally, set the <code>CLASSPATH</code> env variable to a valid path and add a corresponding <code>volumeMount</code> in the <code>StatefulSet</code>. Now you apply the changes by running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f hazelcast.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide shows the basic setup for Hazelcast cluster for Kubernetes. You can find more advanced configurations in other Kubernetes guides.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../kubernetes-hpa/" class="page">Kubernetes HPA for Hazelcast cluster</a></p>
+</li>
+<li>
+<p><a href="../kubernetes-external-client/" class="page">External Hazelcast Client on Kubernetes</a></p>
+</li>
+<li>
+<p><a href="../kubernetes-sidecar/" class="page">Hazelcast as Sidecar container</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+  </body>
+  <footer class="footer">
+<footer class="footer">
+  <a href="https://www.hazelcast.org" class="icon">
+    <img src="../_/img/hazelcast.png" alt="Hazelcast">
+  </a>
+</footer>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </footer>
+</html>

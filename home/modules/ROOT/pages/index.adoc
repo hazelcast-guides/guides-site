@@ -96,6 +96,11 @@ Use Hazelcast with Kubernetes.
 == {empty}
 
 [.guide]
+=== image:logo-kubernetes.png[] xref:kubernetes:ROOT:index.adoc[Hazelcast on Kubernetes]
+
+Getting Started with Hazelcast on Kubernetes.
+
+[.guide]
 === image:logo-kubernetes.png[] xref:kubernetes-embedded:ROOT:index.adoc[Embedded Hazelcast on Kubernetes]
 
 Getting Started with Embedded Hazelcast on Kubernetes.
