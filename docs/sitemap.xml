@@ -16,9 +16,6 @@
 <loc>https://guides.hazelcast.org/sitemap-ecs-embedded.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://guides.hazelcast.org/sitemap-guide-name.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://guides.hazelcast.org/sitemap-hazelcast-client-quarkus.xml</loc>
 </sitemap>
 <sitemap>
@@ -35,6 +32,9 @@
 </sitemap>
 <sitemap>
 <loc>https://guides.hazelcast.org/sitemap-istio.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://guides.hazelcast.org/sitemap-kubernetes.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://guides.hazelcast.org/sitemap-kubernetes-embedded.xml</loc>
