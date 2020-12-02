@@ -139,6 +139,12 @@ Getting Started with Kubernetes HPA for Hazelcast cluster.
 == {empty}
 
 [.guide]
+=== image:logo-springboot.png[] xref:spring-session-hazelcast:ROOT:index.adoc[Spring Session Hazelcast]
+
+Getting Started with Spring Session Hazelcast for session replication in Spring Boot.
+
+
+[.guide]
 === image:logo-springboot.png[] xref:springboot-webfilter-session-replication:ROOT:index.adoc[Session Replication with Spring Boot and Hazelcast]
 
 Getting Started with Hazelcast using Web Filter Based Session Replication in Spring Boot.

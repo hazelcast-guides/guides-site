@@ -62,6 +62,8 @@ content:
       start_path: doc
     - url: https://github.com/hazelcast-guides/kubernetes
       start_path: doc
+    - url: https://github.com/hazelcast-guides/spring-session-hazelcast
+      start_path: doc
 asciidoc:
   extensions:
   - ./lib/tabs-block.js
