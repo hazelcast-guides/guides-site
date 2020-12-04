@@ -14,21 +14,22 @@ Start using Hazelcast in your applications.
 == {empty}
 
 [.guide]
-=== image:logo-springboot.png[] xref:hazelcast-embedded-springboot:ROOT:index.adoc[Hazelcast with SpringBoot]
+=== image:logo-springboot.png[] xref:hazelcast-embedded-springboot:ROOT:index.adoc[Use Hazelcast in a Spring Boot Application]
 
-Getting Started with Hazelcast using Spring Boot.
-
-
-[.guide]
-=== image:logo-microprofile.png[] xref:hazelcast-embedded-microprofile:ROOT:index.adoc[Hazelcast with Microprofile]
-
-Getting Started with Hazelcast using Microprofile.
+Create a basic Spring Boot application which can utilize Hazelcast.
 
 
 [.guide]
-=== image:logo-quarkus.png[] xref:hazelcast-client-quarkus:ROOT:index.adoc[Hazelcast Client with Quarkus]
+=== image:logo-microprofile.png[] xref:hazelcast-embedded-microprofile:ROOT:index.adoc[Use Hazelcast in a Microprofile Application]
 
-Getting Started with Hazelcast using Quarkus.
+Create a basic Microprofile application which can utilize Hazelcast.
+
+
+[.guide]
+=== image:logo-quarkus.png[] xref:hazelcast-client-quarkus:ROOT:index.adoc[Connect a Quarkus Application to Hazelcast]
+
+Create a basic Quarkus application which connects to a Hazelcast cluster.
+
 
 // ---------------------- Group 2
 
@@ -41,19 +42,19 @@ Cache your data via Hazelcast in microservices.
 
 
 [.guide]
-=== image:logo-micronaut.png[] xref:caching-micronaut:ROOT:index.adoc[Caching in Micronaut Microservices]
+=== image:logo-micronaut.png[] xref:caching-micronaut:ROOT:index.adoc[Use Hazelcast as a Cache in Micronaut Microservices]
 
-Cache data with Hazelcast in Micronaut.
-
-[.guide]
-=== image:logo-springboot.png[] xref:caching-springboot:ROOT:index.adoc[Caching in SpringBoot Microservices]
-
-Use Hazelcast as Cache Manager in Spring Boot.
+Learn how to cache data via Hazelcast in Micronaut applications.
 
 [.guide]
-=== image:logo-springboot.png[] xref:caching-springboot-jcache:ROOT:index.adoc[Caching in SpringBoot Microservices via JCache Provider]
+=== image:logo-springboot.png[] xref:caching-springboot:ROOT:index.adoc[Use Hazelcast as a Cache in Spring Boot Microservices]
 
-Use Hazelcast via JCache provider in Spring Boot.
+Learn how to use Hazelcast as Cache Manager in Spring Boot applications.
+
+[.guide]
+=== image:logo-springboot.png[] xref:caching-springboot-jcache:ROOT:index.adoc[Use Hazelcast as JCache Provider in Spring Boot Microservices]
+
+Learn how to use Hazelcast as JCache provider in Spring Boot applications.
 
 
 // ---------------------- Group 3
@@ -67,24 +68,24 @@ Use Hazelcast in your cloud architecture.
 
 
 [.guide]
-=== image:logo-ecs.png[] xref:ecs-embedded:ROOT:index.adoc[Embedded Hazelcast on ECS]
+=== image:logo-ecs.png[] xref:ecs-embedded:ROOT:index.adoc[Deploy Hazelcast Applications on ECS]
 
-Getting Started with Hazelcast on ECS.
-
-[.guide]
-=== image:logo-istio.png[] xref:istio:ROOT:index.adoc[Hazelcast with Istio Service Mesh]
-
-Getting Started with Hazelcast Embedded and Client/Server topologies in Istio Service Mesh.
+Learn how to deploy an application with embedded Hazelcast to an ECS cluster.
 
 [.guide]
-=== image:logo-vmware-tanzu.png[] xref:vmware-tanzu:ROOT:index.adoc[Hazelcast Enterprise IMDG for VMware Tanzu]
+=== image:logo-istio.png[] xref:istio:ROOT:index.adoc[Use Hazelcast with Istio Environment]
 
-Getting Started with Hazelcast Enterprise IMDG for VMware Tanzu.
+Learn how to use Hazelcast with Istio Service Mesh.
 
 [.guide]
-=== image:logo-terraform.png[] xref:terraform-quickstarts:ROOT:index.adoc[Hazelcast Cluster with Terraform]
+=== image:logo-vmware-tanzu.png[] xref:vmware-tanzu:ROOT:index.adoc[Deploy Hazelcast Cluster on VMware Tanzu]
 
-Deploy Hazelcast cluster on cloud using Terraform.
+Learn how to create a Hazelcast Enterprise cluster on VMware Tanzu.
+
+[.guide]
+=== image:logo-terraform.png[] xref:terraform-quickstarts:ROOT:index.adoc[Deploy Hazelcast Cluster with Terraform]
+
+Learn how to create Hazelcast clusters on cloud using Terraform.
 
 // ---------------------- Group 4
 
@@ -96,39 +97,39 @@ Use Hazelcast with Kubernetes.
 == {empty}
 
 [.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes:ROOT:index.adoc[Hazelcast on Kubernetes]
+=== image:logo-kubernetes.png[] xref:kubernetes:ROOT:index.adoc[Deploy Hazelcast Cluster on Kubernetes]
 
-Getting Started with Hazelcast on Kubernetes.
-
-[.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes-embedded:ROOT:index.adoc[Embedded Hazelcast on Kubernetes]
-
-Getting Started with Embedded Hazelcast on Kubernetes.
+Learn how to create a Hazelcast cluster on Kubernetes.
 
 [.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes-external-client:ROOT:index.adoc[External Hazelcast Client on Kubernetes]
+=== image:logo-kubernetes.png[] xref:kubernetes-embedded:ROOT:index.adoc[Deploy Hazelcast Applications on Kubernetes]
 
-Getting Started with External Hazelcast Client on Kubernetes.
-
-[.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes-sidecar:ROOT:index.adoc[Hazelcast as Sidecar container]
-
-Getting Started with Hazelcast as Sidecar container.
+Learn how to deploy an application with embedded Hazelcast on Kubernetes.
 
 [.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes-wan:ROOT:index.adoc[Hazelcast WAN Replication (Enterprise Only)]
+=== image:logo-kubernetes.png[] xref:kubernetes-external-client:ROOT:index.adoc[Connect External Hazelcast Client to Kubernetes]
 
-Getting Started with Hazelcast WAN Replication (Enterprise Only).
-
-[.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes-ssl:ROOT:index.adoc[Hazelcast with SSL (Enterprise Only)]
-
-Getting Started with Hazelcast with SSL (Enterprise Only).
+Learn how to connect an external client to a Hazelcast cluster deployed on Kubernetes.
 
 [.guide]
-=== image:logo-kubernetes.png[] xref:kubernetes-hpa:ROOT:index.adoc[Kubernetes HPA for Hazelcast cluster]
+=== image:logo-kubernetes.png[] xref:kubernetes-sidecar:ROOT:index.adoc[Use Hazelcast as Sidecar Container]
 
-Getting Started with Kubernetes HPA for Hazelcast cluster.
+Learn how to use Hazelcast as a sidecar container for your applications deployed on Kubernetes.
+
+[.guide]
+=== image:logo-kubernetes.png[] xref:kubernetes-wan:ROOT:index.adoc[Use Hazelcast WAN Replication on Kubernetes]
+
+Learn how to synchronize two Hazelcast clusters deployed on Kubernetes. (Enterprise feature)
+
+[.guide]
+=== image:logo-kubernetes.png[] xref:kubernetes-ssl:ROOT:index.adoc[Enable SSL between Hazelcast Members and Clients on Kubernetes]
+
+Learn how to enable SSL between Hazelcast clients and members deployed on Kubernetes. (Enterprise feature)
+
+[.guide]
+=== image:logo-kubernetes.png[] xref:kubernetes-hpa:ROOT:index.adoc[Deploy Hazelcast Cluster with Kubernetes HPA]
+
+Learn how to set up HPA for a Hazelcast cluster using Resource Metrics or Custom Metrics on Kubernetes.
 
 // ---------------------- Group 5
 
@@ -139,42 +140,42 @@ Getting Started with Kubernetes HPA for Hazelcast cluster.
 == {empty}
 
 [.guide]
-=== image:logo-springboot.png[] xref:spring-session-hazelcast:ROOT:index.adoc[Spring Session Hazelcast]
+=== image:logo-springboot.png[] xref:spring-session-hazelcast:ROOT:index.adoc[Use Hazelcast as Spring Session Repository]
 
-Getting Started with Spring Session Hazelcast for session replication in Spring Boot.
-
-
-[.guide]
-=== image:logo-springboot.png[] xref:springboot-webfilter-session-replication:ROOT:index.adoc[Session Replication with Spring Boot and Hazelcast]
-
-Getting Started with Hazelcast using Web Filter Based Session Replication in Spring Boot.
+Learn how to use Hazelcast as HTTP session store for clustered applications.
 
 
 [.guide]
-=== image:logo-springboot.png[] xref:springboot-tomcat-session-replication:ROOT:index.adoc[Tomcat Session Replication with Spring Boot and Hazelcast]
+=== image:logo-springboot.png[] xref:springboot-webfilter-session-replication:ROOT:index.adoc[Use Hazelcast WebFilter for Session Replication in Spring Boot]
 
-Getting Started with Hazelcast using Session Manager Based Session Replication in Spring Boot.
-
-
-[.guide]
-=== image:logo-springboot.png[] xref:springboot-hibernate:ROOT:index.adoc[Hazelcast L2C for Hibernate in SpringBoot]
-
-Getting Started with Hazelcast and Hibernate Second-Level Cache.
+Learn how to use Hazelcast for replicating HTTP sessions among multiple application containers using servlet filter.
 
 
 [.guide]
-=== image:logo-hibernate.png[] xref:hibernate-jcache:ROOT:index.adoc[Using JCache for Hibernate L2C]
+=== image:logo-springboot.png[] xref:springboot-tomcat-session-replication:ROOT:index.adoc[Use Hazelcast SessionManager for Session Replication in Spring Boot]
 
-Jcache SPI for using Hazelcast as L2C for Hibernate.
-
-
-[.guide]
-=== image:logo-striim.png[] xref:striim-cdc:ROOT:index.adoc[Oracle CDC and Hazelcast via Striim]
-
-Load data from Oracle CDC to Hazelcast via Striim.
+Learn how to use Hazelcast for replicating HTTP sessions among multiple application containers using Tomcat Session Manager.
 
 
 [.guide]
-=== image:logo-win.png[] xref:active-directory-authentication:ROOT:index.adoc[Active Directory Authentication]
+=== image:logo-springboot.png[] xref:springboot-hibernate:ROOT:index.adoc[Use Hazelcast as Hibernate L2C in Spring Boot]
 
-Hazelcast Kerberos authentication in Microsoft Active Directory domains.
+Learn how to use Hazelcast as Hibernate Second-Level Cache.
+
+
+[.guide]
+=== image:logo-hibernate.png[] xref:hibernate-jcache:ROOT:index.adoc[Use Hazelcast as Hibernate L2C JCache Provider]
+
+Learn how to use Hazelcast as JCache provider for Hibernate Second-Level Cache.
+
+
+[.guide]
+=== image:logo-striim.png[] xref:striim-cdc:ROOT:index.adoc[Load Data from Oracle CDC to Hazelcast via Striim]
+
+Learn how to use Hazelcast Striim Writer to create a hot cache for the data stored in an Oracle Database.
+
+
+[.guide]
+=== image:logo-win.png[] xref:active-directory-authentication:ROOT:index.adoc[Deploy Cluster with Kerberos-based Authentication]
+
+Learn how to use Hazelcast Kerberos authentication in Microsoft Active Directory domains. (Enterprise Feature)
