@@ -69,5 +69,5 @@ asciidoc:
   - ./lib/tabs-block.js
 ui:
   bundle:
-    url: https://github.com/hazelcast-guides/guides-ui/releases/download/v13/ui-bundle.zip
+    url: https://github.com/hazelcast-guides/guides-ui/releases/download/v13-dark/ui-bundle.zip
     snapshot: true
