@@ -74,7 +74,7 @@ from nav.
 <h2 id="_what_youll_learn"><a class="anchor" href="#_what_youll_learn"></a>What You’ll Learn</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this guide, you will deploy Hazelcast cluster to Kubernetes and connect to it using Hazelcast client.</p>
+<p>In this guide, you will deploy Hazelcast cluster to Kubernetes and connect it to a Kubernetes application.</p>
 </div>
 </div>
 </div>
@@ -105,22 +105,13 @@ from nav.
 <div class="ulist">
 <ul>
 <li>
-<p>Install Hazelcast Management Center at the same time</p>
+<p>Automated deployment including the Hazelcast Management Center tool</p>
 </li>
 <li>
-<p>Configure <code>livenessProbe</code> and <code>readinessProbe</code></p>
+<p>Automated lifecycle operations (scaling, upgrades) to avoid data loss</p>
 </li>
 <li>
-<p>Simple Hazelcast configuration</p>
-</li>
-<li>
-<p>Scale up/down Hazelcast cluster without data loss</p>
-</li>
-<li>
-<p>Rolling upgrades without data loss</p>
-</li>
-<li>
-<p>RBAC configuration</p>
+<p>Role-based access control</p>
 </li>
 </ul>
 </div>
@@ -189,7 +180,7 @@ Members {size:3, ver:3} [
 </div>
 </div>
 <div class="paragraph">
-<p>At this point you have a running Hazelcast cluster with 3 members, exposed with a service called <code>hz-hazelcast</code>.</p>
+<p>At this point you have started a Hazelcast cluster with 3 members. It is exposed with a service called <code>hz-hazelcast</code>.</p>
 </div>
 </div>
 </div>
@@ -197,13 +188,16 @@ Members {size:3, ver:3} [
 <h2 id="_configure_hazelcast_client"><a class="anchor" href="#_configure_hazelcast_client"></a>Configure Hazelcast client</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To use Hazelcast client, first, you need to configure/install Hazelcast client dependency.</p>
+<p>Use Hazelcast client to connect to the running Hazelcast cluster from your applications.</p>
+</div>
+<div class="paragraph">
+<p>To use Hazelcast client, add Hazelcast client dependency to your application.</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
 <li>
-<p><a id="tabset2_java"></a>Java</p>
+<p>[[tabset2_java&#8212;&#8203;maven-]]Java (Maven)</p>
 </li>
 <li>
 <p><a id="tabset2_nodejs"></a>NodeJS</p>
@@ -211,7 +205,7 @@ Members {size:3, ver:3} [
 </ul>
 </div>
 <div class="content">
-<div class="tab-pane" aria-labelledby="tabset2_java">
+<div class="tab-pane" aria-labelledby="tabset2_java--maven-">
 <div class="listingblock">
 <div class="title">pom.xml</div>
 <div class="content">
@@ -233,7 +227,7 @@ Members {size:3, ver:3} [
 </div>
 </div>
 <div class="paragraph">
-<p>Then, you can configure Hazelcast client in your application code to use <code>hz-hazelcast</code> (DNS of a service for Hazelcast cluster) as the member address.</p>
+<p>Configure the Hazelcast client in your application to connect to the <code>hz-hazelcast</code> service.</p>
 </div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
@@ -277,12 +271,12 @@ const client = await Client.newHazelcastClient(clientConfig);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>With the configuration above, if you deploy your application to Kubernetes cluster, it should automatically connect to Hazelcast cluster.</p>
+<p>Your application is now configured to automatically connect to the Hazelcast cluster once it&#8217;s deployed to Kubernetes.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_deploy_hazelcast_client_application"><a class="anchor" href="#_deploy_hazelcast_client_application"></a>Deploy Hazelcast client application</h2>
+<h2 id="_deploy_the_client_application"><a class="anchor" href="#_deploy_the_client_application"></a>Deploy the client application</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To deploy your application to Kubernetes cluster, you need first to dockerize it.</p>
@@ -335,7 +329,7 @@ const client = await Client.newHazelcastClient(clientConfig);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>After a moment, your application should run in Kubernetes. You can check its logs.</p>
+<p>After a moment, check application logs to see it running in Kubernetes.</p>
 </div>
 <div class="listingblock">
 <div class="content">
