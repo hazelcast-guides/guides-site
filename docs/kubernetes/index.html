@@ -63,7 +63,7 @@ from nav.
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This sample is a guideline on how to start Hazelcast cluster on the Kubernetes environment.</p>
+<p>This sample is a guideline on how to start and use Hazelcast cluster in Kubernetes.</p>
 </div>
 <div class="paragraph">
 <p>You can see the whole project <a href="https://github.com/hazelcast-guides/kubernetes">here.</a></p>
@@ -74,64 +74,246 @@ from nav.
 <h2 id="_what_youll_learn"><a class="anchor" href="#_what_youll_learn"></a>What You’ll Learn</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this guide you will deploy Hazelcast cluster to Kubernetes.</p>
+<p>In this guide, you will deploy Hazelcast cluster to Kubernetes and connect to it using Hazelcast client.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Up and running <a href="https://kubernetes.io/">Kubernetes</a> version 1.9 or higher.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>For development and testing, you may use <a href="https://github.com/kubernetes/minikube">Minikube</a></p>
+<p>Up and running <a href="https://kubernetes.io/">Kubernetes</a> cluster (version 1.9 or higher)</p>
 </li>
 <li>
-<p>You must have the Kubernetes command line tool, <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl</a>, installed</p>
+<p>Kubernetes command line tool, <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl</a></p>
+</li>
+<li>
+<p>(optional) <a href="https://helm.sh/docs/intro/install/">Helm CLI</a></p>
 </li>
 </ul>
-</div>
-</li>
-<li>
-<p>Another important note would be that this document assumes some familiarity with <code>kubectl</code>, Kubernetes, and Docker.</p>
-</li>
-</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_deployment_steps"><a class="anchor" href="#_deployment_steps"></a>Deployment Steps</h2>
+<h2 id="_deploy_hazelcast_cluster"><a class="anchor" href="#_deploy_hazelcast_cluster"></a>Deploy Hazelcast cluster</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_creating_role_binding"><a class="anchor" href="#_creating_role_binding"></a>Creating Role Binding</h3>
 <div class="paragraph">
-<p>Hazelcast uses Kubernetes API to discover nodes and that is why you need to grant certain permissions. The simplest Role Binding file looks like <code>rbac.yaml</code>. Note that you can make it more specific, since Hazelcast actually uses only certain API endpoints. Note also that if you use "DNS Lookup Discovery" instead of "REST API Discovery", then you can skip the Role Binding step at all. Read more at <a href="https://github.com/hazelcast/hazelcast-kubernetes">Hazelcast Kubernetes API Plugin</a>.</p>
+<p>There are different ways of deploying Hazelcast to Kubernetes. For the production environment we recommend Helm or Hazelcast Operator because these methods provide the complete Hazelcast experience, including the following aspects:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Install Hazelcast Management Center at the same time</p>
+</li>
+<li>
+<p>Configure <code>livenessProbe</code> and <code>readinessProbe</code></p>
+</li>
+<li>
+<p>Simple Hazelcast configuration</p>
+</li>
+<li>
+<p>Scale up/down Hazelcast cluster without data loss</p>
+</li>
+<li>
+<p>Rolling upgrades without data loss</p>
+</li>
+<li>
+<p>RBAC configuration</p>
+</li>
+</ul>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_helm"></a>Helm</p>
+</li>
+<li>
+<p><a id="tabset1_hazelcast-operator"></a>Hazelcast Operator</p>
+</li>
+<li>
+<p><a id="tabset1_kubectl"></a>Kubectl</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_helm">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">helm repo add hazelcast https://hazelcast-charts.s3.amazonaws.com/
+helm repo update
+helm install hz-hazelcast hazelcast/hazelcast</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_hazelcast-operator">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/operator-rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcast-rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcastcluster.crd.yaml
+kubectl --validate=false apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/operator.yaml
+kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcast.yaml</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_kubectl">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-kubernetes/master/rbac.yaml
+
+kubectl run hz-hazelcast-0 --image=hazelcast/hazelcast:$HAZELCAST_VERSION -l "role=hazelcast"
+kubectl run hz-hazelcast-1 --image=hazelcast/hazelcast:$HAZELCAST_VERSION -l "role=hazelcast"
+kubectl run hz-hazelcast-2 --image=hazelcast/hazelcast:$HAZELCAST_VERSION -l "role=hazelcast"
+
+kubectl create service clusterip hz-hazelcast --tcp=5701 -o yaml --dry-run=client | kubectl set selector --local -f - "role=hazelcast" -o yaml | kubectl create -f -</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>You can check that the Hazelcast cluster is up and running.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f rbac.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs hz-hazelcast-0
+...
+Members {size:3, ver:3} [
+        Member [10.216.6.7]:5701 - 6d2100e0-8dcf-4e7c-ab40-8e98e23475e3 this
+        Member [10.216.5.6]:5701 - 5ab4d554-fd7d-4929-8475-0ddf79a21076
+        Member [10.216.8.6]:5701 - 7f7dd5f4-e732-4575-89d6-a6e823da38da
+]</code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_creating_config_map"><a class="anchor" href="#_creating_config_map"></a>Creating Config Map</h3>
 <div class="paragraph">
-<p>Hazelcast configuration can be stored in the Config Map. You can install it with the following command:</p>
+<p>At this point you have a running Hazelcast cluster with 3 members, exposed with a service called <code>hz-hazelcast</code>.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configure_hazelcast_client"><a class="anchor" href="#_configure_hazelcast_client"></a>Configure Hazelcast client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use Hazelcast client, first, you need to configure/install Hazelcast client dependency.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_java"></a>Java</p>
+</li>
+<li>
+<p><a id="tabset2_nodejs"></a>NodeJS</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_java">
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.hazelcast&lt;/groupId&gt;
+    &lt;artifactId&gt;hazelcast&lt;/artifactId&gt;
+    &lt;version&gt;${hazelcast.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_nodejs">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f config.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">var Client = require('hazelcast-client').Client;</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_creating_secret_with_enterprise_key_enterprise_only"><a class="anchor" href="#_creating_secret_with_enterprise_key_enterprise_only"></a>Creating Secret with Enterprise Key (Enterprise Only)</h3>
+</div>
+</div>
 <div class="paragraph">
-<p>Hazelcast Enterprise requires the Hazelcast Enterprise License Key. You can store it as Kubernetes Secret.</p>
+<p>Then, you can configure Hazelcast client in your application code to use <code>hz-hazelcast</code> (DNS of a service for Hazelcast cluster) as the member address.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset3_java"></a>Java</p>
+</li>
+<li>
+<p><a id="tabset3_nodejs"></a>NodeJS</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset3_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">ClientConfig config = new ClientConfig();
+config.getNetworkConfig().addAddress("hz-hazelcast");
+
+// Additionally configure connection retry timout
+config.getConnectionStrategyConfig()
+      .getConnectionRetryConfig()
+      .setClusterConnectTimeoutMillis(Long.MAX_VALUE);</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_nodejs">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">var clientConfig = {
+    network: {
+        clusterMembers: [
+            'hz-hazelcast'
+        ]
+    }
+}
+const client = await Client.newHazelcastClient(clientConfig);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>With the configuration above, if you deploy your application to Kubernetes cluster, it should automatically connect to Hazelcast cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_hazelcast_client_application"><a class="anchor" href="#_deploy_hazelcast_client_application"></a>Deploy Hazelcast client application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To deploy your application to Kubernetes cluster, you need first to dockerize it.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset4_java"></a>Java</p>
+</li>
+<li>
+<p><a id="tabset4_nodejs"></a>NodeJS</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset4_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker build -t hazelcastguides/hazelcast-client java</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset4_nodejs">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker build -t hazelcastguides/hazelcast-client nodejs</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -141,7 +323,7 @@ from nav.
 </td>
 <td class="content">
 <div class="paragraph">
-<p>This step is not required for Hazelcast Open Source.</p>
+<p>If you use a remote Kubernetes cluster and you want to build your own Docker image then make sure that you also push your Docker image into the Docker registry.</p>
 </div>
 </td>
 </tr>
@@ -149,98 +331,90 @@ from nav.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl create secret generic hz-enterprise-license --from-literal=key=&lt;LICENSE-KEY&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl run hazelcast-client --image=hazelcastguides/hazelcast-client</code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_starting_hazelcast_cluster"><a class="anchor" href="#_starting_hazelcast_cluster"></a>Starting Hazelcast Cluster</h3>
 <div class="paragraph">
-<p>Finally, deploy the Hazelcast cluster:</p>
+<p>After a moment, your application should run in Kubernetes. You can check its logs.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f hazelcast.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl logs hazelcast-client
+...
+Members {size:3, ver:3} [
+        Member [10.216.6.7]:5701 - 6d2100e0-8dcf-4e7c-ab40-8e98e23475e3 this
+        Member [10.216.5.6]:5701 - 5ab4d554-fd7d-4929-8475-0ddf79a21076
+        Member [10.216.8.6]:5701 - 7f7dd5f4-e732-4575-89d6-a6e823da38da
+]
+...
+Connection Successful!
+Now the map named 'map' will be filled with random entries.
+Current map size: 71754
+Current map size: 71758
+Current map size: 71782
+Current map size: 71792
+...</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For Hazelcast Enterprise, use the following command:</p>
+<p>To remove the client application, execute the following command.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f hazelcast-enterprise.yaml</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_persistent_volume"><a class="anchor" href="#_persistent_volume"></a>Persistent Volume</h3>
-<div class="paragraph">
-<p>This is a <strong>prerequisite</strong> step if you have JARs.</p>
-</div>
-<div class="paragraph">
-<p>In order to share a custom domain JARs (for example <code>EntryProcessor</code> implementations) among Hazelcast pods, you need to add a persistent volume in Kubernetes.</p>
-</div>
-<div class="paragraph">
-<p>There are many ways you can define and map volumes in Kubernetes. Types of volumes are discussed in the <a href="https://kubernetes.io/docs/concepts/storage/volumes/">official documentation</a>.</p>
-</div>
-<div class="paragraph">
-<p>Once you have created a volume, copy your custom Hazelcast JARs into the root volume directory and add it into the <code>CLASSPATH</code> environment variable.</p>
-</div>
-<div class="paragraph">
-<p>In the following example a GCE Persistent Disk named "my-hz-disk" has been already created and populated with the custom configuration.</p>
-</div>
-<div class="paragraph">
-<p>Open a text editor and add the following deployment YAML for persistent volume:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: hz-pv
-spec:
-  capacity:
-    storage: 10Gi
-  storageClassName: standard
-  accessModes:
-    - ReadWriteOnce
-    - ReadOnlyMany
-  persistentVolumeReclaimPolicy: Retain
-  gcePersistentDisk:
-    pdName: my-hz-disk
-    fsType: ext4</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Save this file as <code>hz-pv.yaml</code>. Please also notice that <code>Reclaim Policy</code> is set as <code>Retain</code>. Therefore, contents of this folder will remain as is, between successive <code>claims</code>.</p>
-</div>
-<div class="paragraph">
-<p>Create the persistent volume:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f hz-pv.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Please note that contents of your previous deployment is preserved. If you change the claim policy to <code>RECYCLE</code>, you have to transfer all custom files to <code>&lt;your-pv-path&gt;</code> before each successive deployments.</p>
-</div>
-<div class="paragraph">
-<p>Now edit <code>hazelcast.yaml</code>, and a PersistentVolumeClaim definition to match the above PersistentVolume. Finally, set the <code>CLASSPATH</code> env variable to a valid path and add a corresponding <code>volumeMount</code> in the <code>StatefulSet</code>. Now you apply the changes by running:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl apply -f hazelcast.yaml</code></pre>
-</div>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete pod hazelcast-client</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<h2 id="_tear_down_hazelcast_cluster"><a class="anchor" href="#_tear_down_hazelcast_cluster"></a>Tear down Hazelcast cluster</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide shows the basic setup for Hazelcast cluster for Kubernetes. You can find more advanced configurations in other Kubernetes guides.</p>
+<p>To delete Hazelcast cluster, run the following commands.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset5_helm"></a>Helm</p>
+</li>
+<li>
+<p><a id="tabset5_hazelcast-operator"></a>Hazelcast Operator</p>
+</li>
+<li>
+<p><a id="tabset5_kubectl"></a>Kubectl</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset5_helm">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">helm uninstall hz-hazelcast</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset5_hazelcast-operator">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcast.yaml
+kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/operator.yaml
+kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcastcluster.crd.yaml
+kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcast-rbac.yaml
+kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/operator-rbac.yaml</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset5_kubectl">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete service hz-hazelcast
+kubectl delete pod hz-hazelcast-0 hz-hazelcast-1 hz-hazelcast-2
+kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-kubernetes/master/rbac.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
