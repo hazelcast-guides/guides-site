@@ -220,7 +220,7 @@ Members {size:3, ver:3} [
 <div class="tab-pane" aria-labelledby="tabset2_nodejs">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">var Client = require('hazelcast-client').Client;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">const { Client } = require('hazelcast-client');</code></pre>
 </div>
 </div>
 </div>
@@ -257,13 +257,13 @@ config.getConnectionStrategyConfig()
 <div class="tab-pane" aria-labelledby="tabset3_nodejs">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">var clientConfig = {
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">const clientConfig = {
     network: {
         clusterMembers: [
             'hz-hazelcast'
         ]
     }
-}
+};
 const client = await Client.newHazelcastClient(clientConfig);</code></pre>
 </div>
 </div>
@@ -341,8 +341,8 @@ Members {size:3, ver:3} [
         Member [10.216.8.6]:5701 - 7f7dd5f4-e732-4575-89d6-a6e823da38da
 ]
 ...
-Connection Successful!
-Now the map named 'map' will be filled with random entries.
+Successful connection!
+Starting to fill the map with random entries.
 Current map size: 71754
 Current map size: 71758
 Current map size: 71782
