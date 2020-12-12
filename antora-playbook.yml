@@ -7,7 +7,7 @@ site:
 urls:
   html_extension_style: indexify
 content:
-  branches: master # ignore "v*" branches.
+  branches: master # ignore "v*" branches. 
   sources:
     - url: . # home
       branches: HEAD
