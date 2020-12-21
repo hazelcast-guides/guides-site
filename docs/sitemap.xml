@@ -13,6 +13,9 @@
 <loc>https://guides.hazelcast.org/sitemap-caching-springboot-jcache.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://guides.hazelcast.org/sitemap-ec2-cluster.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://guides.hazelcast.org/sitemap-ecs-embedded.xml</loc>
 </sitemap>
 <sitemap>

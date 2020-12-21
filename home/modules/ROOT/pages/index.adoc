@@ -68,6 +68,11 @@ Use Hazelcast in your cloud architecture.
 
 
 [.guide]
+=== image:logo-ec2.png[] xref:ec2-cluster:ROOT:index.adoc[Deploy Hazelcast Cluster on AWS EC2]
+
+Learn how to create a Hazelcast cluster on AWS EC2.
+
+[.guide]
 === image:logo-ecs.png[] xref:ecs-embedded:ROOT:index.adoc[Deploy Hazelcast Applications on ECS]
 
 Learn how to deploy an application with embedded Hazelcast to an ECS cluster.
