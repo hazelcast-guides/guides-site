@@ -202,6 +202,9 @@ Members {size:3, ver:3} [
 <li>
 <p><a id="tabset2_nodejs"></a>NodeJS</p>
 </li>
+<li>
+<p><a id="tabset2_python"></a>Python</p>
+</li>
 </ul>
 </div>
 <div class="content">
@@ -220,7 +223,14 @@ Members {size:3, ver:3} [
 <div class="tab-pane" aria-labelledby="tabset2_nodejs">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">const { Client } = require('hazelcast-client');</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">npm install hazelcast-client</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_python">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pip install hazelcast-python-client</code></pre>
 </div>
 </div>
 </div>
@@ -237,6 +247,9 @@ Members {size:3, ver:3} [
 </li>
 <li>
 <p><a id="tabset3_nodejs"></a>NodeJS</p>
+</li>
+<li>
+<p><a id="tabset3_python"></a>Python</p>
 </li>
 </ul>
 </div>
@@ -257,7 +270,9 @@ config.getConnectionStrategyConfig()
 <div class="tab-pane" aria-labelledby="tabset3_nodejs">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">const clientConfig = {
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">const { Client } = require('hazelcast-client');
+
+const clientConfig = {
     network: {
         clusterMembers: [
             'hz-hazelcast'
@@ -265,6 +280,17 @@ config.getConnectionStrategyConfig()
     }
 };
 const client = await Client.newHazelcastClient(clientConfig);</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_python">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import hazelcast
+
+client = hazelcast.HazelcastClient(
+    cluster_members=["hz-hazelcast"],
+)</code></pre>
 </div>
 </div>
 </div>
@@ -290,6 +316,9 @@ const client = await Client.newHazelcastClient(clientConfig);</code></pre>
 <li>
 <p><a id="tabset4_nodejs"></a>NodeJS</p>
 </li>
+<li>
+<p><a id="tabset4_python"></a>Python</p>
+</li>
 </ul>
 </div>
 <div class="content">
@@ -304,6 +333,13 @@ const client = await Client.newHazelcastClient(clientConfig);</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker build -t hazelcastguides/hazelcast-client nodejs</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset4_python">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker build -t hazelcastguides/hazelcast-client python</code></pre>
 </div>
 </div>
 </div>
