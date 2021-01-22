@@ -66,6 +66,9 @@ content:
       start_path: doc
     - url: https://github.com/hazelcast-guides/ec2-cluster
       start_path: doc
+    # Not visible on the home page, temporarily added for testing:
+    - url: https://github.com/hazelcast-guides/base-guide
+      start_path: doc
 asciidoc:
   extensions:
   - ./lib/tabs-block.js
