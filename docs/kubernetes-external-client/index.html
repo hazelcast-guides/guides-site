@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>External Hazelcast Client on Kubernetes</title>
+    <title>Connect To Hazelcast Running on Kubernetes from Outside</title>
     <link rel="canonical" href="https://guides.hazelcast.org/kubernetes-external-client/">
     <meta name="generator" content="Antora 2.3.4">
     <link rel="stylesheet" href="../_/css/site.css">
@@ -58,12 +58,12 @@ from nav.
 </div>
   <div class="content">
 <article class="guide-content">
-<h1 class="page">External Hazelcast Client on Kubernetes</h1>
+<h1 class="page">Connect To Hazelcast Running on Kubernetes from Outside</h1>
 <p class="edit-page"><a href=https://github.com/hazelcast-guides/kubernetes-external-client/edit/main/doc/modules/ROOT/pages/index.adoc>See something wrong? Edit this page.</a></p>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a complete example presenting how to use Hazelcast cluster deployed on Kubernetes with Hazelcast Smart Client running outside of Kubernetes.
+<p>This is a complete example presenting how to use Hazelcast cluster deployed on Kubernetes with Hazelcast Client running outside of Kubernetes.
 This example assumes you have a running Kubernetes cluster and the kubectl tool installed and configured.</p>
 </div>
 </div>
@@ -72,7 +72,7 @@ This example assumes you have a running Kubernetes cluster and the kubectl tool 
 <h2 id="_what_youll_learn"><a class="anchor" href="#_what_youll_learn"></a>What You’ll Learn</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this guide you will learn how to deploy Hazelcast Kubernetes cluster and connect to it using external client.</p>
+<p>In this guide you will learn how to deploy Hazelcast Kubernetes cluster and connect to it using a client outside Kubernetes.</p>
 </div>
 </div>
 </div>
@@ -293,7 +293,7 @@ Members {size:3, ver:3} [
 <h2 id="_configure_hazelcast_client_outside_kubernetes"><a class="anchor" href="#_configure_hazelcast_client_outside_kubernetes"></a>Configure Hazelcast Client outside Kubernetes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When we have a working Hazelcast cluster deployed on Kubernetes, we can connect to it with an external Hazelcast Smart Client. You need first to fetch the credentials of the created Service Account and then use them to configure the client.</p>
+<p>When we have a working Hazelcast cluster deployed on Kubernetes, we can connect to it with an external Hazelcast Client. You need first to fetch the credentials of the created Service Account and then use them to configure the client.</p>
 </div>
 <div class="sect2">
 <h3 id="_check_kubernetes_master_ip"><a class="anchor" href="#_check_kubernetes_master_ip"></a>Check Kubernetes Master IP</h3>
