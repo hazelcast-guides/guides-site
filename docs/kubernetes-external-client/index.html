@@ -222,9 +222,11 @@ hazelcast-2   LoadBalancer   10.175.253.232   34.78.182.50    5701:30305/TCP   1
 <pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script"># Create metacontroller namespace.
 kubectl create namespace metacontroller
 # Create metacontroller service account and role/binding.
-kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/master/manifests/metacontroller-rbac.yaml
-# Create CRDs for Metacontroller APIs, and the Metacontroller StatefulSet.
-kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/master/manifests/metacontroller.yaml</code></pre>
+kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/v1.4.2/manifests/production/metacontroller-rbac.yaml
+# Create CRDs for Metacontroller APIs
+kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/v1.4.2/manifests/production/metacontroller-crds-v1.yaml
+# Create Metacontroller StatefulSet.
+kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/v1.4.2/manifests/production/metacontroller.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
