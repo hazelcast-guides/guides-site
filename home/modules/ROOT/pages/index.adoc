@@ -83,6 +83,11 @@ Learn how to deploy an application with embedded Hazelcast to an ECS cluster.
 Learn how to use Hazelcast with Istio Service Mesh.
 
 [.guide]
+=== image:logo-linkerd.svg[] xref:linkerd:ROOT:index.adoc[Use Hazelcast with Linkerd Environment]
+
+Learn how to use Hazelcast with Linkerd Service Mesh.
+
+[.guide]
 === image:logo-vmware-tanzu.png[] xref:vmware-tanzu:ROOT:index.adoc[Deploy Hazelcast Cluster on VMware Tanzu]
 
 Learn how to create a Hazelcast Enterprise cluster on VMware Tanzu.
