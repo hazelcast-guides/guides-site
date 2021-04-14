@@ -66,6 +66,8 @@ content:
       start_path: doc
     - url: https://github.com/hazelcast-guides/ec2-cluster
       start_path: doc
+    - url: https://github.com/hazelcast-guides/linkerd
+      start_path: doc
 asciidoc:
   extensions:
   - ./lib/tabs-block.js
