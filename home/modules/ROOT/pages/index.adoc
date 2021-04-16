@@ -88,6 +88,11 @@ Learn how to use Hazelcast with Istio Service Mesh.
 Learn how to use Hazelcast with Linkerd Service Mesh.
 
 [.guide]
+=== image:logo-consul.svg[] xref:consul:ROOT:index.adoc[Use Hazelcast with Consul Environment]
+
+Learn how to use Hazelcast with Consul Service Mesh.
+
+[.guide]
 === image:logo-vmware-tanzu.png[] xref:vmware-tanzu:ROOT:index.adoc[Deploy Hazelcast Cluster on VMware Tanzu]
 
 Learn how to create a Hazelcast Enterprise cluster on VMware Tanzu.
