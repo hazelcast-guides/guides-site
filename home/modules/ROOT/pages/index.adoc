@@ -146,6 +146,11 @@ Learn how to enable SSL between Hazelcast clients and members deployed on Kubern
 
 Learn how to set up HPA for a Hazelcast cluster using Resource Metrics or Custom Metrics on Kubernetes.
 
+[.guide]
+=== image:logo-openshift.png[] xref:openshift:ROOT:index.adoc[Hazelcast for OpenShift]
+
+Getting Started with Hazelcast for OpenShift.
+
 // ---------------------- Group 5
 
 [.group-header]

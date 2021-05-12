@@ -7,7 +7,7 @@ site:
 urls:
   html_extension_style: indexify
 content:
-  branches: master # ignore "v*" branches. 
+  branches: master # ignore "v*" branches.
   sources:
     - url: . # home
       branches: HEAD
@@ -69,6 +69,8 @@ content:
     - url: https://github.com/hazelcast-guides/linkerd
       start_path: doc
     - url: https://github.com/hazelcast-guides/consul
+      start_path: doc
+    - url: https://github.com/hazelcast-guides/openshift
       start_path: doc
 asciidoc:
   extensions:
