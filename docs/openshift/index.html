@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hazelcast for OpenShift</title>
+    <link rel="canonical" href="https://guides.hazelcast.org/openshift/">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../_/css/site.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3921306-4"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-3921306-4')</script>
+    <link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <img
+        class="logo"
+        alt="Hazelcast"
+        srcset="../_/img/hazelcast-logo-white.png 1x, ../_/img/hazelcast-logo-white@2x.png 2x, ../_/img/hazelcast-logo-white@3x.png 3x"
+      />
+      <a class="navbar-item" href="../home/">Hazelcast Guides</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://hazelcast.org/">
+          hazelcast.org
+           <img
+              class="external-link"
+              alt="Hazelcast"
+              srcset="../_/img/external-link.png 1x, ../_/img/external-link@2x.png 2x, ../_/img/external-link@3x.png 3x"
+            />
+          </a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+
+<div class="nav-container" data-component="openshift" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+    </div>
+  </aside>
+</div>
+<!--
+nav is included to make toc visible only.
+It's not visible on the page. It needs to
+be removed after toc is made independent
+from nav.
+-->
+
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+</div>
+  <div class="content">
+<article class="guide-content">
+<h1 class="page">Hazelcast for OpenShift</h1>
+<p class="edit-page"><a href=https://github.com/hazelcast-guides/openshift/edit/master/doc/modules/ROOT/pages/index.adoc>See something wrong? Edit this page.</a></p>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hazelcast can be used as a Caching Layer for applications deployed on <a href="https://www.openshift.com/">OpenShift</a>.</p>
+</div>
+<div class="paragraph">
+<p>This sample is a complete guideline on how to set up the local OpenShift environment, start Hazelcast cluster, configure Management Center, and finally run a sample client application.</p>
+</div>
+<div class="paragraph">
+<p>You can see the whole project <a href="https://github.com/hazelcast-guides/openshift">here.</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_by_step_instruction"><a class="anchor" href="#_step_by_step_instruction"></a>Step-by-step instruction</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_step_1_install_openshift_environment"><a class="anchor" href="#_step_1_install_openshift_environment"></a>Step 1: Install OpenShift environment</h3>
+<div class="paragraph">
+<p>There are multiple options to run the OpenShift environment:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.okd.io/minishift/">Minishift</a>: local OpenShift deployed on Virtual Machine</p>
+</li>
+<li>
+<p><a href="https://www.openshift.com/products/online/">OpenShift Online</a>: Red Hat&#8217;s cloud platform</p>
+</li>
+<li>
+<p><a href="https://github.com/aws-quickstart/quickstart-redhat-openshift#red-hat-openshift-container-platform-on-the-aws-cloud">OpenShift installed on AWS</a></p>
+</li>
+<li>
+<p>OpenShift installed on any other cloud platform or a dedicated server</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This guide can be followed on any environment, however some steps differ, for example, accessing Persistent Storage. What&#8217;s more, some steps are not possible to execute on certain environments, for example, connecting with external client to the Hazelcast deployed on OpenShift Online (since it does not provide public IPs). In such cases, the Minishift solution is presented, because Minishift is free and simple to start from.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Minishift (version 3.11.0) is used to help with running OpenShift locally. Use the following steps to set it up:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install OpenShift Container Development Kit (CDK) as described <a href="https://developers.redhat.com/products/cdk/download">here</a>.</p>
+</li>
+<li>
+<p>Configure CDK and run a first Hello World OpenShift application as described <a href="https://developers.redhat.com/products/cdk/hello-world">here</a>.
+The Red Hat guide is complete in general, however here are a few <strong>hints</strong> that can save your time:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Complete the "Setup" section before you run <code>minishift setup-cdk</code></p>
+</li>
+<li>
+<p>In case of any issues with Minishift, you can enable fine level logging with the option <code>--show-libmachine-logs -v5</code></p>
+</li>
+<li>
+<p>In case of using Windows and Hyper-V:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>In one of the points you need to create the virtual switch, you can use <a href="https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/create-a-virtual-switch-for-hyper-v-virtual-machines">this guide</a> to do it; then the name of the created
+switch is the one you need to use instead of "External (Wireless)"</p>
+</li>
+<li>
+<p>Make sure to <a href="https://docs.microsoft.com/en-us/archive/blogs/virtual_pc_guy/adding-yourself-to-the-hyper-v-administrators-group-with-powershell">add user to Hyper-V Administrator group</a></p>
+</li>
+<li>
+<p>Hyper-V does not well support NAT networks, so your router must accept the Virtual Machine connecting directly to the same
+network interface (in case of problems, you may see a meaningless error <code>Too many retries waiting for SSH to be available</code>);
+the solution is to use VirutalBox instead of Hyper-V or play with the <a href="https://docs.okd.io/3.11/minishift/using/experimental-features.html">experimental Minishift features</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Run <code>eval $(minishift oc-env)</code> and make sure your <code>minishift</code> and <code>oc</code> tools are installed and ready to use.</p>
+<div class="literalblock">
+<div class="content">
+<pre>minishift version
+minishift v1.27.0+5981f996
+CDK v3.7.0-1
+oc version
+oc v3.11.43
+kubernetes v1.11.0+d4cacc0
+features: Basic-Auth</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Make also sure that you&#8217;re able to access the OpenShift Web Console.</p>
+<div class="literalblock">
+<div class="content">
+<pre>minishift console</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Log in as Username: "developer", Password: "developer".</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="assets/images/open_shift_web_console.png" alt="OpenShift Web Console">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_start_hazelcast_cluster"><a class="anchor" href="#_step_2_start_hazelcast_cluster"></a>Step 2: Start Hazelcast cluster</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In case of Hazelcast Enterprise, you will need a valid Hazelcast license key. If you don&#8217;t have one, you can either
+use <a href="https://github.com/hazelcast/hazelcast-code-samples/tree/master/hazelcast-integration/openshift/hazelcast-cluster/hazelcast">Hazelcast OpenShift Origin</a> instead or get a trial key from <a href="https://hazelcast.com/get-started/#hazelcast-imdg">this link</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_1_create_project"><a class="anchor" href="#_1_create_project"></a>1) Create Project</h4>
+<div class="paragraph">
+<p>Log into OpenShift Platform. The login command is available when you click in the Web Console: "Copy Login Command".</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="assets/images/copy_login.png" alt="OpenShift Web Console">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc login https://192.168.99.100:8443 --token=zCKv7Ot8wzoXpwmaTRgXl_9ZYO1guxuyygWiFYbBmz0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, you can create a new project.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc new-project hazelcast</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In case of <a href="https://github.com/hazelcast/hazelcast-code-samples/tree/master/hazelcast-integration/openshift/hazelcast-cluster/hazelcast-enterprise-rhel">Hazelcast Enterprise RHEL</a>, you will need to authenticate to Red Hat Container Catalog as described
+<a href="#_authenticate_to_red_hat_container_catalog">here</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_start_hazelcast_cluster"><a class="anchor" href="#_2_start_hazelcast_cluster"></a>2) Start Hazelcast cluster</h4>
+<div class="paragraph">
+<p>Change the directory to Hazelcast Enterprise (<code>cd hazelcast-cluster/hazelcast-enterprise</code>), Hazelcast Enterprise RHEL (<code>cd hazelcast-cluster/hazelcast-enterprise-rhel</code>) or Hazelcast (<code>cd hazelcast-cluster/hazelcast</code>).</p>
+</div>
+<div class="paragraph">
+<p>Then, start the cluster with the following command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc new-app -f hazelcast.yaml \
+  -p NAMESPACE=$(oc project -q) \
+  -p ENTERPRISE_LICENSE_KEY=&lt;hazelcast_enterprise_license&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Used parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>NAMESPACE</code>: must be the same as the OpenShift project&#8217;s name</p>
+</li>
+<li>
+<p><code>ENTERPRISE_LICENSE_KEY</code>: Hazelcast Enterprise License (not needed for <a href="https://github.com/hazelcast/hazelcast-code-samples/tree/master/hazelcast-integration/openshift/hazelcast-cluster/hazelcast">Hazelcast
+OpenShift Origin</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_check_that_hazelcast_is_running"><a class="anchor" href="#_3_check_that_hazelcast_is_running"></a>3) Check that Hazelcast is running</h4>
+<div class="paragraph">
+<p>To check all created OpenShift resources, use the following command. You might need to wait some time until all pods are in Running status.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc get all
+NAME                                     READY   STATUS              RESTARTS   AGE
+pod/hazelcast-0                          1/1     Running             0          3m
+pod/hazelcast-1                          1/1     Running             0          37s
+pod/hazelcast-2                          1/1     Running             0          3s
+pod/management-center-556ccb8fdf-jhkpc   1/1     Running             0          3m
+
+NAME                                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+service/hazelcast-service           ClusterIP   None         &lt;none&gt;        5701/TCP   3m
+service/management-center-service   ClusterIP   None         &lt;none&gt;        8080/TCP   3m
+
+NAME                                DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/management-center   1         1         1            0           3m
+
+NAME                                           DESIRED   CURRENT   READY   AGE
+replicaset.apps/management-center-556ccb8fdf   1         1         0       3m
+
+NAME                         DESIRED   CURRENT   AGE
+statefulset.apps/hazelcast   3         3         3m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Please check that the STATUS is Running for all PODs. Then, to check the logs for each replica, use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc logs po/hazelcast-2
+...
+2021-04-28 13:32:20,174 [ INFO] [hz.wizardly_leavitt.IO.thread-in-1] [c.h.i.s.t.TcpServerConnection]: [172.17.0.12]:5701 [dev] [4.2] Initialized new cluster connection between /172.17.0.12:47658 and /172.17.0.10:5701
+2021-04-28 13:32:20,183 [ INFO] [hz.wizardly_leavitt.IO.thread-in-0] [c.h.i.s.t.TcpServerConnection]: [172.17.0.12]:5701 [dev] [4.2] Initialized new cluster connection between /172.17.0.12:46709 and /172.17.0.11:5701
+2021-04-28 13:32:26,178 [ INFO] [hz.wizardly_leavitt.generic-operation.thread-0] [c.h.i.c.ClusterService]: [172.17.0.12]:5701 [dev] [4.2]
+Members {size:3, ver:3} [
+	Member [172.17.0.10]:5701 - 73097260-75e7-4a52-820c-d8025dd12495
+	Member [172.17.0.11]:5701 - a673ca49-3ece-44b9-9a0f-22f08b475a77
+	Member [172.17.0.12]:5701 - 4471c176-9187-47cf-98fd-da42216f7fba this
+]
+2021-04-28 13:32:27,226 [ INFO] [main] [c.h.c.LifecycleService]: [172.17.0.12]:5701 [dev] [4.2] [172.17.0.12]:5701 is STARTED
+...</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also perform all the operations and observe the results in the OpenShift Web Console.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="assets/images/hazelcast_pods.png" alt="OpenShift Web Console">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_access_management_center"><a class="anchor" href="#_step_3_access_management_center"></a>Step 3: Access Management Center</h3>
+<div class="paragraph">
+<p>Management Center application (Hazelcast Enterprise only) is already started together with Hazelcast members when using <code>hazelcast.yaml</code>. Nevertheless, in order to make it usable, you need to expose its service.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc expose svc/management-center-service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, it&#8217;s accessible via the exposed route, which you can check by:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc get route
+NAME                        HOST/PORT                                                   PATH   SERVICES                    PORT   TERMINATION   WILDCARD
+management-center-service   management-center-service-hazelcast.192.168.99.100.nip.io          management-center-service   8080                 None</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, you can access Management Center by opening <code><a href="http://management-center-service-hazelcast.192.168.99.100.nip.io/hazelcast-mancenter" class="bare">http://management-center-service-hazelcast.192.168.99.100.nip.io/hazelcast-mancenter</a></code> (<code>/mancenter</code> for versions prior to <code>3.10</code>) in your browser.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="assets/images/mancenter.png" alt="Hazelcast Management Center">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_4_run_a_sample_hazelcast_client_application"><a class="anchor" href="#_step_4_run_a_sample_hazelcast_client_application"></a>Step 4: Run a sample Hazelcast client application</h3>
+<div class="paragraph">
+<p>If you&#8217;re interested not only in setting up the Hazelcast cluster, but also in using it in the client application, you can follow the following guidelines.
+Note that OpenShift Guide uses the <a href="https://www.eclipse.org/jkube/">Eclipse JKube</a> OpenShift Maven Plugin to build the container
+image and deploy it into the
+cluster. JKube requires 3.3.x or higher maven version, therefore make sure that you have proper maven version installed on your machine.</p>
+</div>
+<div class="sect3">
+<h4 id="_1_build_maven_dependencies"><a class="anchor" href="#_1_build_maven_dependencies"></a>1) Build Maven dependencies</h4>
+<div class="paragraph">
+<p>In the main project directory run the following command to install the snapshot JAR files from the <code>ocp-demo-frontend</code> directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mvn clean install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_2_build_ocp_demo_frontend_container_image"><a class="anchor" href="#_2_build_ocp_demo_frontend_container_image"></a>2) Build "ocp-demo-frontend" Container image</h4>
+<div class="paragraph">
+<p>Run the following command to build the container image in the cluster using S2I build strategy:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mvn oc:build</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_3_check_container_image_exists_in_the_local_openshift_registry"><a class="anchor" href="#_3_check_container_image_exists_in_the_local_openshift_registry"></a>3) Check container image exists in the local OpenShift registry</h4>
+<div class="paragraph">
+<p>Check if your image is already in the OpenShift registry:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc get is
+NAME                IMAGE REPOSITORY                                                                       TAGS     UPDATED
+ocp-demo-frontend   image-registry.openshift-image-registry.svc:5000/sbishyr-hazelcast/ocp-demo-frontend   latest   About a minute ago</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_deploy_the_ocp_demo_frontend_application"><a class="anchor" href="#_4_deploy_the_ocp_demo_frontend_application"></a>4) Deploy the "ocp-demo-frontend" application</h4>
+<div class="paragraph">
+<p>To start the application, use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">mvn oc:resource oc:apply</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can check that the application is running correctly:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc get all -l app=ocp-demo-frontend
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/ocp-demo-frontend-1-9n9n6   1/1     Running   0          97s
+
+NAME                                        DESIRED   CURRENT   READY   AGE
+replicationcontroller/ocp-demo-frontend-1   1         1         1       100s
+
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/ocp-demo-frontend   ClusterIP   172.30.118.44   &lt;none&gt;        8080/TCP   100s
+
+NAME                                                   REVISION   DESIRED   CURRENT   TRIGGERED BY
+deploymentconfig.apps.openshift.io/ocp-demo-frontend   1          1         1         config,image(ocp-demo-frontend:latest)
+
+NAME                                                   TYPE     FROM     LATEST
+buildconfig.build.openshift.io/ocp-demo-frontend-s2i   Source   Binary   1
+
+NAME                                               TYPE     FROM     STATUS     STARTED         DURATION
+build.build.openshift.io/ocp-demo-frontend-s2i-1   Source   Binary   Complete   3 minutes ago   39s
+
+NAME                                               IMAGE REPOSITORY                                                                       TAGS     UPDATED
+imagestream.image.openshift.io/ocp-demo-frontend   image-registry.openshift-image-registry.svc:5000/sbishyr-hazelcast/ocp-demo-frontend   latest   2 minutes ago
+
+NAME                                         HOST/PORT                                                          PATH   SERVICES            PORT   TERMINATION   WILDCARD
+route.route.openshift.io/ocp-demo-frontend   ocp-demo-frontend-sbishyr-hazelcast.apps.demo.ocp4.hazelcast.com          ocp-demo-frontend   8080                 None</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_4_check_the_application"><a class="anchor" href="#_4_check_the_application"></a>4) Check the application</h4>
+<div class="paragraph">
+<p>JKube should have created a route for your application. You can check the route using the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc get routes
+NAME                                         HOST/PORT                                                          PATH   SERVICES            PORT   TERMINATION   WILDCARD
+route.route.openshift.io/ocp-demo-frontend   ocp-demo-frontend-sbishyr-hazelcast.apps.demo.ocp4.hazelcast.com          ocp-demo-frontend   8080                 None</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, if you open in the browser ocp-demo-frontend-sbishyr-hazelcast.apps.demo.ocp4.hazelcast.com, you should see the following home screen.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="assets/images/client_frontend.png" alt="Frontend Application">
+</div>
+</div>
+<div class="paragraph">
+<p>You can check that the application really works together with the Hazelcast cluster by doing some operation in the application, for example, entering "12" in the "Data Operations&#8594;Count" and clicking "Auto Pilot". Then, in the Management Center application, you should see that the entries are added.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="assets/images/mancenter_ops.png" alt="Management Center Application">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_5_clean_up_hazelcast_deployment"><a class="anchor" href="#_step_5_clean_up_hazelcast_deployment"></a>Step 5: Clean up Hazelcast Deployment</h3>
+<div class="sect3">
+<h4 id="_delete_hazelcast_cluster"><a class="anchor" href="#_delete_hazelcast_cluster"></a>Delete Hazelcast cluster</h4>
+<div class="paragraph">
+<p>If you want to delete all resources (Replication Controller, Service, PODs, Storage, Config Map), you could use the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc delete all --all
+oc delete pvc --all
+oc delete configmap --all</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_authenticate_to_red_hat_container_catalog"><a class="anchor" href="#_authenticate_to_red_hat_container_catalog"></a>Authenticate to Red Hat Container Catalog</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Executing the following commands requires oc in version <code>3.9</code> or higher!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>hazelcast-cluster/hazelcast-enterprise-openshift-rhel/hazelcast.yaml</code> uses images from <a href="https://access.redhat.com/containers/">Red Hat Container Catalog</a>, which
+requires setting Red Hat credentials. In order to do it, you need to execute the following command after creating the OpenShift project.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc create secret docker-registry rhcc \
+   --docker-server=registry.connect.redhat.com \
+   --docker-username=&lt;red_hat_username&gt; \
+   --docker-password=&lt;red_hat_password&gt; \
+   --docker-email=&lt;red_hat_email&gt;
+oc secrets link default rhcc --for=pull</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_external_hazelcast_client"><a class="anchor" href="#_external_hazelcast_client"></a>External Hazelcast Client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Client application presented in this tutorial works only if deployed inside the OpenShift environment. If you need to connect to the Hazelcast cluster deployed on OpenShift, then you can expose a service as <code>LoadBalancer</code> or <code>NodePort</code> and connect to the cluster with Smart Routing disabled.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Your OpenShift environment needs to provide public IP addresses, so for example, the solution won&#8217;t work on the OpenShift Online environment.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To create a <code>LoadBalancer</code> service, create <code>service.yaml</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: hazelcast-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: hazelcast
+    role: hazelcast
+  ports:
+  - protocol: TCP
+    port: 5701</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, apply it into your OpenShift cluster.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f service.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following command checks the external port under which the service is published.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ oc get service hazelcast-loadbalancer -o custom-columns=EXTERNAL_PORT:.spec.ports[0].nodePort
+EXTERNAL_PORT
+31296</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, it&#8217;s possible to access the Hazelcast cluster using server&#8217;s public IP and that port. In case of Minishift, you can check its IP by:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ minishift ip
+192.168.1.176</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, you can connect to the cluster with the following Java client code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Client {
+    public static void main(String[] args) throws Exception {
+        ClientConfig clientConfig = new ClientConfig();
+        clientConfig.getNetworkConfig().setSmartRouting(false);
+        clientConfig.getNetworkConfig().addAddress("192.168.1.176:31296");
+        HazelcastInstance client = HazelcastClient.newHazelcastClient(clientConfig);
+        IMap map = client.getMap("test-map");
+        map.put("testKey", "testValue");
+        client.shutdown();
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_wan_replication"><a class="anchor" href="#_wan_replication"></a>WAN Replication</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You need to expose your Hazelcast cluster with the <code>LoadBalancer</code> (or <code>NodePort</code>) service as described in the section <a href="#_external_hazelcast_client">External Hazelcast Client</a>.</p>
+</div>
+<div class="paragraph">
+<p>Then, use the External IP in <code>target-endpoints</code> in the WAN Configuration. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;wan-replication name="wan-replication-cluster"&gt;
+    &lt;batch-publisher&gt;
+        &lt;cluster-name&gt;dev&lt;/cluster-name&gt;
+        &lt;target-endpoints&gt;EXTERNAL_IP:EXTERNAL_PORT&lt;/target-endpoints&gt;
+    &lt;/batch-publisher&gt;
+&lt;/wan-replication&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_debugging"><a class="anchor" href="#_debugging"></a>Debugging</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Debugging containerized applications in the OpenShift cluster can be difficult. In order to attach to the running POD, you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc exec -ti &lt;pod_name&gt; -- bash</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../kubernetes/" class="page">Hazelcast for Kubernetes</a></p>
+</li>
+<li>
+<p><a href="../kubernetes-external-client/" class="page">External Hazelcast Client on Kubernetes</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+  </body>
+  <footer class="footer">
+<footer class="footer">
+  <a href="https://www.hazelcast.org" class="icon">
+    <img src="../_/img/hazelcast.png" alt="Hazelcast">
+  </a>
+  <a href="https://slack.hazelcast.com" class="slack-button">Join Us On Slack</a>
+</footer>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </footer>
+</html>

@@ -64,6 +64,9 @@
 <loc>https://guides.hazelcast.org/sitemap-linkerd.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://guides.hazelcast.org/sitemap-openshift.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://guides.hazelcast.org/sitemap-spring-session-hazelcast.xml</loc>
 </sitemap>
 <sitemap>
