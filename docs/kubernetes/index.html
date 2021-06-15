@@ -276,12 +276,7 @@ tar xzf hazelcast-cpp-client.tar.gz</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">ClientConfig config = new ClientConfig();
-config.getNetworkConfig().addAddress("hz-hazelcast");
-
-// Additionally configure connection retry timout
-config.getConnectionStrategyConfig()
-      .getConnectionRetryConfig()
-      .setClusterConnectTimeoutMillis(Long.MAX_VALUE);</code></pre>
+config.getNetworkConfig().addAddress("hz-hazelcast");</code></pre>
 </div>
 </div>
 </div>
