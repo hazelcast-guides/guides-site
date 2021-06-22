@@ -30,6 +30,10 @@ Create a basic Microprofile application which can utilize Hazelcast.
 
 Create a basic Quarkus application which connects to a Hazelcast cluster.
 
+[.guide]
+=== image:logo-nodejs.png[] xref:nodejs-client-getting-started:ROOT:index.adoc[Getting Started with Hazelcast Node.js Client]
+
+Learn how to get started with Hazelcast Nodejs Client.
 
 // ---------------------- Group 2
 
