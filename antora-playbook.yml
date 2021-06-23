@@ -72,6 +72,8 @@ content:
       start_path: doc
     - url: https://github.com/hazelcast-guides/openshift
       start_path: doc
+    - url: https://github.com/hazelcast-guides/nodejs-client-getting-started
+      start_path: doc
 asciidoc:
   extensions:
   - ./lib/tabs-block.js
