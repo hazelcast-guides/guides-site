@@ -98,7 +98,7 @@ from nav.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_configure_hazelcast_cluster_on_kubernetes"><a class="anchor" href="#_configure_hazelcast_cluster_on_kubernetes"></a>Configure Hazelcast cluster on Kubernetes</h2>
+<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>There are two approaches you may want to use when setting up on-premises Hazelcast cluster in Kubernetes:</p>
@@ -116,8 +116,11 @@ from nav.
 <div class="paragraph">
 <p>Let&#8217;s see both approaches.</p>
 </div>
-<div class="sect2">
-<h3 id="_unisocket_client"><a class="anchor" href="#_unisocket_client"></a>Unisocket Client</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_unisocket_client"><a class="anchor" href="#_unisocket_client"></a>Unisocket Client</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The simplest possible scenario is to deploy the Hazelcast cluster on Kubernetes and expose all Hazelcast pods with one <code>LoadBalancer</code> (or <code>NodePort</code>) service. With that approach, we piggyback on the standard Kubernetes mechanism, which automatically load balances the traffic to Hazelcast members.</p>
 </div>
@@ -127,8 +130,8 @@ from nav.
 </div>
 <div class="title">Figure 1. Hazelcast Unisocket Client</div>
 </div>
-<div class="sect3">
-<h4 id="_starting_hazelcast_cluster"><a class="anchor" href="#_starting_hazelcast_cluster"></a>Starting Hazelcast cluster</h4>
+<div class="sect2">
+<h3 id="_starting_hazelcast_cluster"><a class="anchor" href="#_starting_hazelcast_cluster"></a>Starting Hazelcast cluster</h3>
 <div class="paragraph">
 <p>There are different ways of deploying Hazelcast to Kubernetes. For the production environment we recommend using Helm.</p>
 </div>
@@ -169,8 +172,8 @@ helm install hz-hazelcast --set service.type=LoadBalancer hazelcast/hazelcast</c
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_verifying_hazelcast_cluster"><a class="anchor" href="#_verifying_hazelcast_cluster"></a>Verifying Hazelcast cluster</h4>
+<div class="sect2">
+<h3 id="_verifying_hazelcast_cluster"><a class="anchor" href="#_verifying_hazelcast_cluster"></a>Verifying Hazelcast cluster</h3>
 <div class="paragraph">
 <p>You can check that the Hazelcast cluster is up and running.</p>
 </div>
@@ -223,7 +226,6 @@ hz-hazelcast   LoadBalancer   10.108.141.178   10.96.184.178     5701:31434/TCP 
 </div>
 <div class="paragraph">
 <p>The field <code>EXTERNAL-IP</code> is the address of your Hazelcast cluster.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -526,8 +528,8 @@ helm install hz-hazelcast \
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_verifying_hazelcast_cluster_2"><a class="anchor" href="#_verifying_hazelcast_cluster_2"></a>Verifying Hazelcast cluster</h4>
+<div class="sect2">
+<h3 id="_verifying_hazelcast_cluster_2"><a class="anchor" href="#_verifying_hazelcast_cluster_2"></a>Verifying Hazelcast cluster</h3>
 <div class="paragraph">
 <p>You can check that the Hazelcast cluster is up and running.</p>
 </div>
