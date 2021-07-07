@@ -156,7 +156,7 @@ Learn how to set up HPA for a Hazelcast cluster using Resource Metrics or Custom
 Getting Started with Hazelcast for OpenShift.
 
 [.guide]
-=== image:logo-kubernetes.png[] xref:openshift:ROOT:index.adoc[Use Hazelcast Client with OpenFaaS on Kubernetes]
+=== image:logo-kubernetes.png[] xref:openfaas-hz-client:ROOT:index.adoc[Use Hazelcast Client with OpenFaaS on Kubernetes]
 
 Learn how to use Hazelcast Clients with OpenFaaS on Kubernetes.
 
