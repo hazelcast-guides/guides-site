@@ -74,6 +74,8 @@ content:
       start_path: doc
     - url: https://github.com/hazelcast-guides/nodejs-client-getting-started
       start_path: doc
+    - url: https://github.com/hazelcast-guides/openfaas-hz-client
+      start_path: doc
 asciidoc:
   extensions:
   - ./lib/tabs-block.js
