@@ -284,11 +284,12 @@ const client = await Client.newHazelcastClient(clientConfig);</code></pre>
 )
 
 func main() {
-	config := hazelcast.NewConfig()
-	cc := &amp;config.ClusterConfig
-	cc.SetAddress("&lt;EXTERNAL-IP&gt;:5701")
-	cc.SmartRouting = false
-	client, err := hazelcast.StartNewClientWithConfig(config)
+	config := hazelcast.Config{}
+	cc := &amp;config.Cluster
+	cc.Network.SetAddresses("&lt;EXTERNAL-IP&gt;:5701")
+	cc.Unisocket = true
+	ctx := context.TODO()
+	client, err := hazelcast.StartNewClientWithConfig(ctx, config)
 	if err != nil {
 		panic(err)
 	}
@@ -637,10 +638,11 @@ const client = await Client.newHazelcastClient(clientConfig);</code></pre>
 )
 
 func main() {
-	config := hazelcast.NewConfig()
-	cc := &amp;config.ClusterConfig
-	cc.SetAddress("&lt;EXTERNAL-IP&gt;:5701")
-	client, err := hazelcast.StartNewClientWithConfig(config)
+	config := hazelcast.Config{}
+	cc := &amp;config.Cluster
+	cc.Network.SetAddresses("&lt;EXTERNAL-IP&gt;:5701")
+	ctx := context.TODO()
+	client, err := hazelcast.StartNewClientWithConfig(ctx, config)
 	if err != nil {
 		panic(err)
 	}
