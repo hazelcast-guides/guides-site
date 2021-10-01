@@ -245,6 +245,9 @@ hz-hazelcast   LoadBalancer   10.108.141.178   10.96.184.178     5701:31434/TCP 
 <li>
 <p><a id="tabset2_go"></a>Go</p>
 </li>
+<li>
+<p><a id="tabset2_python"></a>Python</p>
+</li>
 </ul>
 </div>
 <div class="content">
@@ -297,6 +300,23 @@ func main() {
 </div>
 </div>
 </div>
+<div class="tab-pane" aria-labelledby="tabset2_python">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import logging
+
+import hazelcast
+
+logging.basicConfig(level=logging.INFO)
+
+client = hazelcast.HazelcastClient(
+    cluster_members=["&lt;EXTERNAL-IP&gt;"],
+    use_public_ip=True,
+    smart_routing=False,
+)</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -313,6 +333,9 @@ func main() {
 </li>
 <li>
 <p><a id="tabset3_go"></a>Go</p>
+</li>
+<li>
+<p><a id="tabset3_python"></a>Python</p>
 </li>
 </ul>
 </div>
@@ -340,6 +363,15 @@ npm start</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd go-unisocket
 go run main.go</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_python">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd python-unisocket
+pip install -r requirements.txt
+python main.py</code></pre>
 </div>
 </div>
 </div>
@@ -601,6 +633,9 @@ hz-hazelcast   LoadBalancer   10.219.246.40   35.230.84.127   5701:30443/TCP   5
 <li>
 <p><a id="tabset6_go"></a>Go</p>
 </li>
+<li>
+<p><a id="tabset6_python"></a>Python</p>
+</li>
 </ul>
 </div>
 <div class="content">
@@ -651,6 +686,22 @@ func main() {
 </div>
 </div>
 </div>
+<div class="tab-pane" aria-labelledby="tabset6_python">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import logging
+
+import hazelcast
+
+logging.basicConfig(level=logging.INFO)
+
+client = hazelcast.HazelcastClient(
+    cluster_members=["&lt;EXTERNAL-IP&gt;"],
+    use_public_ip=True,
+)</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -667,6 +718,9 @@ func main() {
 </li>
 <li>
 <p><a id="tabset7_go"></a>Go</p>
+</li>
+<li>
+<p><a id="tabset7_python"></a>Python</p>
 </li>
 </ul>
 </div>
@@ -694,6 +748,15 @@ npm start</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd go
 go run main.go</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset7_python">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd python
+pip install -r requirements.txt
+python main.py</code></pre>
 </div>
 </div>
 </div>
