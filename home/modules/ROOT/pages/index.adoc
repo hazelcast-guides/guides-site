@@ -35,6 +35,11 @@ Create a basic Quarkus application which connects to a Hazelcast cluster.
 
 Learn how to get started with Hazelcast Nodejs Client.
 
+[.guide]
+=== image:logo-go.png[] xref:go-client-getting-started:ROOT:index.adoc[Getting Started with Hazelcast Go Client]
+
+Learn how to get started with Hazelcast Go Client.
+
 // ---------------------- Group 2
 
 [.group-header]
