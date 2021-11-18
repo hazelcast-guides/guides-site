@@ -78,6 +78,8 @@ content:
       start_path: doc
     - url: https://github.com/hazelcast-guides/openfaas-hz-client
       start_path: doc
+    - url: https://github.com/hazelcast-guides/hazelcast-platform-operator
+      start_path: doc
 asciidoc:
   extensions:
   - ./lib/tabs-block.js
