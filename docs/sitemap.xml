@@ -34,6 +34,9 @@
 <loc>https://guides.hazelcast.org/sitemap-hazelcast-embedded-springboot.xml</loc>
 </sitemap>
 <sitemap>
+<loc>https://guides.hazelcast.org/sitemap-hazelcast-platform-operator.xml</loc>
+</sitemap>
+<sitemap>
 <loc>https://guides.hazelcast.org/sitemap-hibernate-jcache.xml</loc>
 </sitemap>
 <sitemap>

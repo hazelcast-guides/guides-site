@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Getting Started with Hazelcast Platform Operator</title>
+    <link rel="canonical" href="https://guides.hazelcast.org/hazelcast-platform-operator/">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../_/css/site.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3921306-4"></script>
+    <script>function gtag(){dataLayer.push(arguments)};window.dataLayer=window.dataLayer||[];gtag('js',new Date());gtag('config','UA-3921306-4')</script>
+    <link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <img
+        class="logo"
+        alt="Hazelcast"
+        srcset="../_/img/hazelcast-logo-white.png 1x, ../_/img/hazelcast-logo-white@2x.png 2x, ../_/img/hazelcast-logo-white@3x.png 3x"
+      />
+      <a class="navbar-item" href="../home/">Hazelcast Guides</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://hazelcast.org/">
+          hazelcast.org
+           <img
+              class="external-link"
+              alt="Hazelcast"
+              srcset="../_/img/external-link.png 1x, ../_/img/external-link@2x.png 2x, ../_/img/external-link@3x.png 3x"
+            />
+          </a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+
+<div class="nav-container" data-component="hazelcast-platform-operator" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+    </div>
+  </aside>
+</div>
+<!--
+nav is included to make toc visible only.
+It's not visible on the page. It needs to
+be removed after toc is made independent
+from nav.
+-->
+
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+</div>
+  <div class="content">
+<article class="guide-content">
+<h1 class="page">Getting Started with Hazelcast Platform Operator</h1>
+<p class="edit-page"><a href=https://github.com/hazelcast-guides/hazelcast-platform-operator/edit/master/doc/modules/ROOT/pages/index.adoc>See something wrong? Edit this page.</a></p>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This sample is a guideline on how to start and use Hazelcast Platform Operator.</p>
+</div>
+<div class="paragraph">
+<p>You can see the whole project <a href="https://github.com/hazelcast-guides/hazelcast-platform-operator">here.</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_youll_learn"><a class="anchor" href="#_what_youll_learn"></a>What You&#8217;ll Learn</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this guide, you will deploy a Hazelcast cluster to Kubernetes using Hazelcast Platform Operator.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Up and running <a href="https://kubernetes.io/">Kubernetes</a> cluster (version 1.9 or higher)</p>
+</li>
+<li>
+<p>Kubernetes command-line tool, <a href="https://kubernetes.io/docs/tasks/tools/#kubectl">kubectl</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_hazelcast_platform_operator"><a class="anchor" href="#_deploy_hazelcast_platform_operator"></a>Deploy Hazelcast Platform Operator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To deploy Hazelcast Platform Operator, you need to apply <code>bundle.yaml</code> that includes all the operator components:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://repository.hazelcast.com/operator/bundle.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the CRDs to make sure they were successfully created:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl get crd
+NAME                              CREATED AT
+hazelcasts.hazelcast.com          2021-11-15T14:37:36Z
+managementcenters.hazelcast.com   2021-11-15T14:37:36Z</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check that the operator is up and running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ kubectl get deployment
+NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
+hazelcast-platform-controller-manager   1/1     1            1           14m</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_hazelcast_cluster"><a class="anchor" href="#_create_hazelcast_cluster"></a>Create Hazelcast cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hazelcast Platform Operator can create both Enterprise and Community Hazelcast clusters. To create the cluster, you need to apply the Hazelcast Custom Resource.</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_hazelcast-platform-enterprise-cluster"></a>Hazelcast Platform Enterprise cluster</p>
+</li>
+<li>
+<p><a id="tabset1_hazelcast-platform-cluster"></a>Hazelcast Platform cluster</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_hazelcast-platform-enterprise-cluster">
+<div class="paragraph">
+<p>For the Hazelcast Platform Enterprise, you need to create a secret with the Hazelcast Enterprise license key.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl create secret generic hazelcast-license-key --from-literal license-key=&lt;hazelcast-license-key&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then run the following command to create the cluster.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: my-hazelcast
+spec:
+  repository: 'docker.io/hazelcast/hazelcast-enterprise'
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_hazelcast-platform-cluster">
+<div class="paragraph">
+<p>For the Hazelcast Platform, run the following command to create the cluster.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: my-hazelcast
+EOF</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_hazelcast_cluster_status"><a class="anchor" href="#_check_hazelcast_cluster_status"></a>Check Hazelcast cluster status</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To check that the Hazelcast cluster is formed, you can check the status of the Hazelcast Custom Resource.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get hazelcast my-hazelcast
+NAME        STATUS    MEMBERS
+hazelcast   Running   3/3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For a more detailed view, you can see the <code>yaml</code> format.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get hazelcast my-hazelcast -o=yaml
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+..................
+spec:
+  clusterName: dev
+  clusterSize: 3
+  exposeExternally: {}
+  licenseKeySecret: hazelcast-license-key
+  repository: docker.io/hazelcast/hazelcast-enterprise
+  version: "5.0-slim"
+status:
+  hazelcastClusterStatus:
+    readyMembers: 3/3
+  phase: Running</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_managementcenter"><a class="anchor" href="#_create_managementcenter"></a>Create ManagementCenter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hazelcast Platform Operator can also create ManagementCenter. For this, run the following command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: hazelcast.com/v1alpha1
+kind: ManagementCenter
+metadata:
+  name: my-managementcenter
+spec:
+  repository: 'hazelcast/management-center'
+  version: '5.0'
+  licenseKeySecret: hazelcast-license-key
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It will create the ManagementCenter Custom Resource and will deploy the ManagementCenter application.
+Run the following command to check that the ManagementCenter was successfully deployed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get managementcenter my-managementcenter
+NAME               STATUS
+managementcenter   Running</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration will expose ManagementCenter using LoadBalancer external IP.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl get svc
+NAME               TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                        AGE
+hazelcast          ClusterIP      10.96.213.134   &lt;none&gt;        5701/TCP                       11m
+managementcenter   LoadBalancer   10.96.200.154   35.241.11.15  8080:31720/TCP,443:31858/TCP   2m57s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open <code>[MANAGEMENT-CENTER-EXTERNAL-IP]:8080</code> in your browser to access the ManagementCenter UI.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clean_up"><a class="anchor" href="#_clean_up"></a>Clean up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To delete the Hazelcast cluster and ManagementCenter, delete the Custom Resources.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ kubectl delete hazelcast my-hazelcast
+hazelcast.hazelcast.com "my-hazelcast" deleted
+
+$ kubectl delete managementcenter my-managementcenter
+managementcenter.hazelcast.com "my-managementcenter" deleted</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you deployed the Hazelcast Platform Enterprise cluster, you might also want to delete the license secret.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl delete secret hazelcast-license-key</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Deletion of the <code>managementcenter</code> resource will not delete the <code>PersistentVolume</code> and the <code>PersistentVolumeClaim</code>. You will need to delete them manually.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Use <code>kubectl delete</code> command to undeploy the operator.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl delete -f https://repository.hazelcast.com/operator/bundle.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this example, we have seen how to use Hazelcast Platform Operator to deploy and manage a Hazelcast Platform cluster and ManagementCenter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also"><a class="anchor" href="#_see_also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../kubernetes/" class="page">Hazelcast for Kubernetes</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+  </body>
+  <footer class="footer">
+<footer class="footer">
+  <a href="https://www.hazelcast.org" class="icon">
+    <img src="../_/img/hazelcast.png" alt="Hazelcast">
+  </a>
+  <a href="https://slack.hazelcast.com" class="slack-button">Join Us On Slack</a>
+</footer>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </footer>
+</html>
