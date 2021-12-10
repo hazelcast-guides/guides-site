@@ -49,10 +49,11 @@ Use Hazelcast with Hazelcast Platform Operator for Kubernetes.
 [.guides-grid]
 == {empty}
 
-[.guide]
-=== image:logo-kubernetes.png[] xref:hazelcast-platform-operator:ROOT:index.adoc[Getting Started with Hazelcast Platform Operator]
 
-Learn how to get started with Hazelcast Platform Operator.
+[.guide]
+=== image:logo-kubernetes.png[] xref:hazelcast-platform-operator-expose-externally:ROOT:index.adoc[Expose Externally with Hazelcast Platform Operator]
+
+Learn how to connect an external client to Hazelcast deployed on Kubernetes using Hazelcast Platform Operator.
 
 // ---------------------- Group 3
 
