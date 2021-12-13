@@ -25,9 +25,6 @@
 <loc>https://guides.hazelcast.org/sitemap-go-client-getting-started.xml</loc>
 </sitemap>
 <sitemap>
-<loc>https://guides.hazelcast.org/sitemap-guide-name.xml</loc>
-</sitemap>
-<sitemap>
 <loc>https://guides.hazelcast.org/sitemap-hazelcast-client-quarkus.xml</loc>
 </sitemap>
 <sitemap>
@@ -35,6 +32,9 @@
 </sitemap>
 <sitemap>
 <loc>https://guides.hazelcast.org/sitemap-hazelcast-embedded-springboot.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://guides.hazelcast.org/sitemap-hazelcast-platform-operator-expose-externally.xml</loc>
 </sitemap>
 <sitemap>
 <loc>https://guides.hazelcast.org/sitemap-hibernate-jcache.xml</loc>
