@@ -497,13 +497,13 @@ kubectl create service loadbalancer hz-hazelcast --tcp=5701 -o yaml --dry-run=cl
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script"># Create metacontroller namespace.
-kubectl create namespace metacontroller
+kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/v2.1.1/manifests/production/metacontroller-namespace.yaml
 # Create metacontroller service account and role/binding.
-kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/v1.4.2/manifests/production/metacontroller-rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/v2.1.1/manifests/production/metacontroller-rbac.yaml
 # Create CRDs for Metacontroller APIs
-kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/v1.4.2/manifests/production/metacontroller-crds-v1.yaml
+kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/v2.1.1/manifests/production/metacontroller-crds-v1.yaml
 # Create Metacontroller StatefulSet.
-kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/v1.4.2/manifests/production/metacontroller.yaml</code></pre>
+kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller/v2.1.1/manifests/production/metacontroller.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -521,8 +521,7 @@ kubectl apply -f https://raw.githubusercontent.com/metacontroller/metacontroller
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">kubectl create configmap service-per-pod-hooks -n metacontroller --from-file=hooks
-kubectl apply -f service-per-pod.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">kubectl apply -k service-per-pod</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -536,13 +535,16 @@ kubectl apply -f service-per-pod.yaml</code></pre>
 </ul>
 </div>
 <div class="listingblock">
+<div class="title">values.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">Unresolved include directive in modules/ROOT/pages/index.adoc - include::../../../../service-per-pod/values.yaml[]</code></pre>
+</div>
+</div>
+<div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">helm repo add hazelcast https://hazelcast-charts.s3.amazonaws.com/
 helm repo update
-helm install hz-hazelcast \
-     --set service.type=LoadBalancer \
-     --set annotations.service-per-pod-label=statefulset.kubernetes.io/pod-name,annotations.service-per-pod-ports="5701:5701" \
-     hazelcast/hazelcast</code></pre>
+helm install hz-hazelcast -f service-per-pod/values.yaml hazelcast/hazelcast</code></pre>
 </div>
 </div>
 </div>
@@ -812,13 +814,12 @@ kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-kubernet
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">helm uninstall hz-hazelcast
 
-kubectl delete -f service-per-pod.yaml
-kubectl delete configmap service-per-pod-hooks -n metacontroller
+kubectl delete -k service-per-pod
 
-kubectl delete -f https://raw.githubusercontent.com/metacontroller/metacontroller/v1.4.2/manifests/production/metacontroller.yaml
-kubectl delete -f https://raw.githubusercontent.com/metacontroller/metacontroller/v1.4.2/manifests/production/metacontroller-crds-v1.yaml
-kubectl delete -f https://raw.githubusercontent.com/metacontroller/metacontroller/v1.4.2/manifests/production/metacontroller-rbac.yaml
-kubectl delete namespace metacontroller</code></pre>
+kubectl delete -f https://raw.githubusercontent.com/metacontroller/metacontroller/v2.1.1/manifests/production/metacontroller.yaml
+kubectl delete -f https://raw.githubusercontent.com/metacontroller/metacontroller/v2.1.1/manifests/production/metacontroller-crds-v1.yaml
+kubectl delete -f https://raw.githubusercontent.com/metacontroller/metacontroller/v2.1.1/manifests/production/metacontroller-rbac.yaml
+kubectl delete -f https://raw.githubusercontent.com/metacontroller/metacontroller/v2.1.1/manifests/production/metacontroller-namespace.yaml</code></pre>
 </div>
 </div>
 </div>
