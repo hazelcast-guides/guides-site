@@ -104,7 +104,7 @@ from nav.
 <h2 id="_deploy_hazelcast_cluster"><a class="anchor" href="#_deploy_hazelcast_cluster"></a>Deploy Hazelcast cluster</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>There are different ways of deploying Hazelcast to Kubernetes. For the production environment we recommend Helm or Hazelcast Operator because these methods provide the complete Hazelcast experience, including the following aspects:</p>
+<p>There are different ways of deploying Hazelcast to Kubernetes. For the production environment we recommend Hazelcast Platform Operator or Helm because these methods provide the complete Hazelcast experience, including the following aspects:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -126,7 +126,7 @@ from nav.
 <p><a id="tabset1_helm"></a>Helm</p>
 </li>
 <li>
-<p><a id="tabset1_hazelcast-operator"></a>Hazelcast Operator</p>
+<p><a id="tabset1_hazelcast-platform-operator"></a>Hazelcast Platform Operator</p>
 </li>
 <li>
 <p><a id="tabset1_kubectl"></a>Kubectl</p>
@@ -143,14 +143,16 @@ helm install hz-hazelcast hazelcast/hazelcast</code></pre>
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset1_hazelcast-operator">
+<div class="tab-pane" aria-labelledby="tabset1_hazelcast-platform-operator">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/operator-rbac.yaml
-kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcast-rbac.yaml
-kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcastcluster.crd.yaml
-kubectl --validate=false apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/operator.yaml
-kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcast.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl apply -f https://repository.hazelcast.com/operator/bundle-latest.yaml
+cat &lt;&lt; EOF | kubectl apply -f -
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hz-hazelcast
+EOF</code></pre>
 </div>
 </div>
 </div>
@@ -488,7 +490,7 @@ Current map size: 71792
 <p><a id="tabset5_helm"></a>Helm</p>
 </li>
 <li>
-<p><a id="tabset5_hazelcast-operator"></a>Hazelcast Operator</p>
+<p><a id="tabset5_hazelcast-platform-operator"></a>Hazelcast Platform Operator</p>
 </li>
 <li>
 <p><a id="tabset5_kubectl"></a>Kubectl</p>
@@ -503,14 +505,11 @@ Current map size: 71792
 </div>
 </div>
 </div>
-<div class="tab-pane" aria-labelledby="tabset5_hazelcast-operator">
+<div class="tab-pane" aria-labelledby="tabset5_hazelcast-platform-operator">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcast.yaml
-kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/operator.yaml
-kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcastcluster.crd.yaml
-kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/hazelcast-rbac.yaml
-kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-operator/master/hazelcast-operator/operator-rbac.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl delete hazelcast hz-hazelcast
+kubectl delete -f https://repository.hazelcast.com/operator/bundle-latest.yaml</code></pre>
 </div>
 </div>
 </div>
