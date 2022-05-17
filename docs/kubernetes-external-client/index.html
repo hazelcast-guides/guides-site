@@ -260,6 +260,9 @@ hz-hazelcast   LoadBalancer   10.108.141.178   10.96.184.178     5701:31434/TCP 
 <li>
 <p><a id="tabset2_python"></a>Python</p>
 </li>
+<li>
+<p><a id="tabset2_c--"></a>C++</p>
+</li>
 </ul>
 </div>
 <div class="content">
@@ -330,6 +333,23 @@ client = hazelcast.HazelcastClient(
 </div>
 </div>
 </div>
+<div class="tab-pane" aria-labelledby="tabset2_c--">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">#include &lt;hazelcast/client/hazelcast_client.h&gt;
+
+int main(int argc, char **argv) {
+    hazelcast::client::client_config config;
+    config.get_network_config().use_public_address(true)
+                            .add_address(hazelcast::client::address{"&lt;EXTERNAL-IP&gt;", 5701})
+                            .set_smart_routing(false);
+    auto client = hazelcast::new_client(std::move(config)).get();
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -349,6 +369,9 @@ client = hazelcast.HazelcastClient(
 </li>
 <li>
 <p><a id="tabset3_python"></a>Python</p>
+</li>
+<li>
+<p><a id="tabset3_c--"></a>C++</p>
 </li>
 </ul>
 </div>
@@ -385,6 +408,16 @@ go run main.go</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd python-unisocket
 pip install -r requirements.txt
 python main.py</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset3_c--">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd cpp-unisocket
+cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
+cmake --build build --verbose
+./build/cpp-unisocket</code></pre>
 </div>
 </div>
 </div>
@@ -651,6 +684,9 @@ hz-hazelcast   LoadBalancer   10.219.246.40   35.230.84.127   5701:30443/TCP   5
 <li>
 <p><a id="tabset6_python"></a>Python</p>
 </li>
+<li>
+<p><a id="tabset6_c--"></a>C++</p>
+</li>
 </ul>
 </div>
 <div class="content">
@@ -717,6 +753,22 @@ client = hazelcast.HazelcastClient(
 </div>
 </div>
 </div>
+<div class="tab-pane" aria-labelledby="tabset6_c--">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">#include &lt;hazelcast/client/hazelcast_client.h&gt;
+
+int main(int argc, char **argv) {
+    hazelcast::client::client_config config;
+    config.get_network_config().use_public_address(true)
+                            .add_address(hazelcast::client::address{"&lt;EXTERNAL-IP&gt;", 5701});
+    auto client = hazelcast::new_client(std::move(config)).get();
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -736,6 +788,9 @@ client = hazelcast.HazelcastClient(
 </li>
 <li>
 <p><a id="tabset7_python"></a>Python</p>
+</li>
+<li>
+<p><a id="tabset7_c--"></a>C++</p>
 </li>
 </ul>
 </div>
@@ -772,6 +827,16 @@ go run main.go</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd python
 pip install -r requirements.txt
 python main.py</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset7_c--">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd cpp
+cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
+cmake --build build --verbose
+./build/cpp</code></pre>
 </div>
 </div>
 </div>
