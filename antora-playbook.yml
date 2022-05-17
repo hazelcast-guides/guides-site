@@ -70,8 +70,6 @@ content:
       start_path: doc
     - url: https://github.com/hazelcast-guides/consul
       start_path: doc
-    - url: https://github.com/hazelcast-guides/openshift
-      start_path: doc
     - url: https://github.com/hazelcast-guides/nodejs-client-getting-started
       start_path: doc
     - url: https://github.com/hazelcast-guides/go-client-getting-started
