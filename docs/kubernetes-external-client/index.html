@@ -497,6 +497,20 @@ kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-kubernet
 <div class="paragraph">
 <p>Kubernetes does not offer a feature for automatically creating a service for each pod. That is why to set up a cluster this way we need to either expose each pod manually with <code>kubectl</code> or use the project called Metacontroller, which enables such functionality.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are using Minikube, you need to execute <code>minikube tunnel</code> now in order to get LoadBalancer External IPs assigned.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
@@ -645,20 +659,6 @@ hz-hazelcast-2   LoadBalancer   10.219.247.106   35.247.93.190    5701:32452/TCP
 NAME           TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)          AGE
 hz-hazelcast   LoadBalancer   10.219.246.40   35.230.84.127   5701:30443/TCP   5m29s</code></pre>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you are using Minikube, you need to execute <code>minikube tunnel</code> now in order to get LoadBalancer External IPs assigned.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>The field <code>EXTERNAL-IP</code> is the address of your Hazelcast cluster.</p>
